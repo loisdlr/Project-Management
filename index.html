@@ -282,6 +282,9 @@ dialog{border:0;border-radius:14px;width:min(620px,92vw);padding:0;box-shadow:0 
       SUPABASE_URL: "https://lrfeevsdigmluwzvvrid.supabase.co",
       SUPABASE_PUBLISHABLE_KEY: "sb_publishable_quKZdoV3hYI9nNxjVmEq0Q_7kVRZl5q"
     };
+
+    // Email confirmations are explicitly redirected to:
+    // https://dualflow.vercel.app/
   </script>
 
   <script type="module">
@@ -796,7 +799,10 @@ $("signUpForm").addEventListener("submit", async e => {
   const { data, error } = await supabase.auth.signUp({
     email:$("signUpEmail").value.trim(),
     password:$("signUpPassword").value,
-    options:{data:{display_name:$("signUpName").value.trim()}}
+    options:{
+      data:{display_name:$("signUpName").value.trim()},
+      emailRedirectTo:"https://dualflow.vercel.app/"
+    }
   });
   if (error) return showMessage($("authMessage"), error.message, "error");
   if (!data.session) showMessage($("authMessage"), "Account created. Check your email to confirm it, then sign in.", "success");
