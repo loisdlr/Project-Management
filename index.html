@@ -53,7 +53,146 @@ dialog{border:0;border-radius:14px;width:min(620px,92vw);padding:0;box-shadow:0 
 @media(max-width:1100px){.kanban-board{grid-template-columns:repeat(4,270px)}}@media(max-width:850px){.app-shell{grid-template-columns:1fr}.sidebar{display:none}.mobile-only{display:inline-block}.projects-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.settings-grid{grid-template-columns:1fr}}
 @media(max-width:620px){.center-screen{padding:14px}.auth-card{padding:20px}.two-col{grid-template-columns:1fr}.main{padding:16px 12px 30px}.topbar{flex-direction:column}.filters input{min-width:100%}.kanban-board{grid-template-columns:repeat(4,260px)}.projects-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.dialog-actions{grid-template-columns:auto 1fr auto}}
 
-  </style>
+  
+/* =========================================================
+   BOARD TOOLBAR POLISH
+   Keeps filters compact on desktop and clean on Safari/macOS
+   ========================================================= */
+.board-toolbar{
+  padding:18px 20px;
+  border-radius:14px;
+  border:1px solid #d9e0ea;
+  background:#ffffff;
+}
+
+.board-toolbar h2{
+  font-size:18px;
+  font-weight:800;
+  letter-spacing:-0.01em;
+}
+
+.board-toolbar p{
+  margin-top:5px;
+  font-size:12px;
+  color:#6b778c;
+}
+
+.filters{
+  display:grid;
+  grid-template-columns:minmax(260px,2fr) repeat(3,minmax(150px,1fr));
+  gap:10px;
+  align-items:center;
+  margin-top:16px;
+}
+
+.filters input,
+.filters select{
+  width:100%;
+  min-width:0;
+  height:42px;
+  margin:0;
+  border:1px solid #c7d0dd;
+  border-radius:9px;
+  background-color:#ffffff;
+  color:#172b4d;
+  font-size:13px;
+  font-weight:600;
+  line-height:1.2;
+  box-shadow:none;
+  transition:border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
+}
+
+.filters input{
+  padding:0 13px;
+  font-weight:500;
+}
+
+.filters input::placeholder{
+  color:#8c97a8;
+  font-weight:500;
+}
+
+.filters select{
+  -webkit-appearance:none;
+  appearance:none;
+  padding:0 38px 0 12px;
+  cursor:pointer;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #526173 50%),
+    linear-gradient(135deg, #526173 50%, transparent 50%);
+  background-position:
+    calc(100% - 17px) 17px,
+    calc(100% - 12px) 17px;
+  background-size:5px 5px,5px 5px;
+  background-repeat:no-repeat;
+}
+
+.filters input:hover,
+.filters select:hover{
+  border-color:#9eabbc;
+  background-color:#fbfcfe;
+}
+
+.filters input:focus,
+.filters select:focus{
+  border-color:#0c66e4;
+  box-shadow:0 0 0 3px rgba(12,102,228,.12);
+  outline:none;
+  background-color:#fff;
+}
+
+.stats-row{
+  margin:12px 0 16px;
+}
+
+.stat-chip{
+  padding:6px 10px;
+  border-color:#dde3ec;
+  background:#ffffff;
+}
+
+@media(max-width:1050px){
+  .filters{
+    grid-template-columns:minmax(240px,2fr) repeat(2,minmax(150px,1fr));
+  }
+
+  .filters select:last-child{
+    grid-column:auto;
+  }
+}
+
+@media(max-width:820px){
+  .filters{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .filters input{
+    grid-column:1 / -1;
+  }
+}
+
+@media(max-width:560px){
+  .board-toolbar{
+    padding:15px;
+  }
+
+  .filters{
+    grid-template-columns:1fr;
+    gap:8px;
+  }
+
+  .filters input{
+    grid-column:auto;
+    min-width:0;
+  }
+
+  .filters input,
+  .filters select{
+    height:44px;
+  }
+}
+
+</style>
 </head>
 <body>
   <section id="configScreen" class="center-screen hidden">
@@ -279,8 +418,8 @@ dialog{border:0;border-radius:14px;width:min(620px,92vw);padding:0;box-shadow:0 
     // NEVER paste a service_role or secret key here.
     // ============================================================
     window.DUALFLOW_CONFIG = {
-      SUPABASE_URL: "https://lrfeevsdigmluwzvvrid.supabase.co",
-      SUPABASE_PUBLISHABLE_KEY: "sb_publishable_quKZdoV3hYI9nNxjVmEq0Q_7kVRZl5q"
+      SUPABASE_URL: "PASTE_YOUR_SUPABASE_PROJECT_URL_HERE",
+      SUPABASE_PUBLISHABLE_KEY: "PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE"
     };
 
     // Email confirmations are explicitly redirected to:
