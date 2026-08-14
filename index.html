@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DualFlow Shared Project Manager</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <section id="configScreen" class="center-screen hidden">
+    <div class="auth-card">
+      <div class="logo-row">
+        <div class="logo">DF</div>
+        <div><strong>DualFlow</strong><span>Shared project manager</span></div>
+      </div>
+      <h1>Connect Supabase</h1>
+      <p>This app is ready for online sharing. Add your Supabase Project URL and Publishable Key in <code>config.js</code>, then reload.</p>
+      <ol class="setup-list">
+        <li>Create a free Supabase project.</li>
+        <li>Run <strong>supabase_setup.sql</strong> in the Supabase SQL Editor.</li>
+        <li>Copy your Project URL and Publishable Key into <strong>config.js</strong>.</li>
+        <li>Upload these files to your website/hosting.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="authScreen" class="center-screen hidden">
+    <div class="auth-card narrow">
+      <div class="logo-row">
+        <div class="logo">DF</div>
+        <div><strong>DualFlow</strong><span>Shared project manager</span></div>
+      </div>
+
+      <div class="auth-tabs">
+        <button id="signInTab" class="tab-btn active" type="button">Sign In</button>
+        <button id="signUpTab" class="tab-btn" type="button">Create Account</button>
+      </div>
+
+      <form id="signInForm" class="stack">
+        <h1>Welcome back</h1>
+        <label>Email<input id="signInEmail" type="email" required autocomplete="email"></label>
+        <label>Password<input id="signInPassword" type="password" required autocomplete="current-password"></label>
+        <button class="primary-btn" type="submit">Sign In</button>
+      </form>
+
+      <form id="signUpForm" class="stack hidden">
+        <h1>Create your account</h1>
+        <label>Your name<input id="signUpName" required maxlength="60"></label>
+        <label>Email<input id="signUpEmail" type="email" required autocomplete="email"></label>
+        <label>Password<input id="signUpPassword" type="password" required minlength="6" autocomplete="new-password"></label>
+        <button class="primary-btn" type="submit">Create Account</button>
+      </form>
+
+      <p id="authMessage" class="message hidden" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section id="workspaceScreen" class="center-screen hidden">
+    <div class="auth-card">
+      <div class="logo-row">
+        <div class="logo">DF</div>
+        <div><strong>DualFlow</strong><span>Set up your shared workspace</span></div>
+      </div>
+      <h1>Connect the two users</h1>
+      <p>User 1 can create the workspace. User 2 can join it using the invite code.</p>
+
+      <div class="two-col">
+        <form id="createWorkspaceForm" class="option-card stack">
+          <h2>Create workspace</h2>
+          <p>Choose this on the first user's account.</p>
+          <label>Workspace name<input id="workspaceName" required maxlength="80" placeholder="e.g. Lois & Partner Projects"></label>
+          <button class="primary-btn" type="submit">Create Workspace</button>
+        </form>
+
+        <form id="joinWorkspaceForm" class="option-card stack">
+          <h2>Join workspace</h2>
+          <p>Choose this on the second user's account.</p>
+          <label>Invite code<input id="inviteCodeInput" required maxlength="12" placeholder="ABC12345" autocapitalize="characters"></label>
+          <button class="secondary-btn" type="submit">Join Workspace</button>
+        </form>
+      </div>
+
+      <p id="workspaceMessage" class="message hidden" aria-live="polite"></p>
+      <button id="workspaceSignOut" class="link-btn" type="button">Sign out</button>
+    </div>
+  </section>
+
+  <div id="appShell" class="app-shell hidden">
+    <aside class="sidebar">
+      <div class="logo-row sidebar-logo">
+        <div class="logo">DF</div>
+        <div><strong>DualFlow</strong><span id="workspaceNameLabel"></span></div>
+      </div>
+
+      <nav>
+        <button class="nav-btn active" data-view="board" type="button">▦ Board</button>
+        <button class="nav-btn" data-view="projects" type="button">▣ Projects</button>
+        <button class="nav-btn" data-view="settings" type="button">⚙ Settings</button>
+      </nav>
+
+      <div class="team-area">
+        <p class="eyebrow">TEAM</p>
+        <div id="teamList"></div>
+      </div>
+
+      <button id="signOutBtn" class="sidebar-signout" type="button">Sign Out</button>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1 id="pageTitle">Project Board</h1>
+          <p id="signedInAs"></p>
+        </div>
+        <div class="top-actions">
+          <button id="newProjectBtn" class="secondary-btn" type="button">+ Project</button>
+          <button id="newTaskBtn" class="primary-btn" type="button">+ Add Card</button>
+          <button id="mobileSignOut" class="secondary-btn mobile-only" type="button">Sign Out</button>
+        </div>
+      </header>
+
+      <section id="boardView" class="view active">
+        <div class="board-toolbar">
+          <div>
+            <h2>Team Board</h2>
+            <p>Drag cards between columns. Changes sync for both users.</p>
+          </div>
+          <div class="filters">
+            <input id="searchInput" type="search" placeholder="Search cards...">
+            <select id="projectFilter"><option value="">All projects</option></select>
+            <select id="assigneeFilter"><option value="">All assignees</option></select>
+            <select id="priorityFilter">
+              <option value="">All priorities</option>
+              <option>Low</option><option>Medium</option><option>High</option><option>Urgent</option>
+            </select>
+          </div>
+        </div>
+        <div id="boardStats" class="stats-row"></div>
+        <div id="kanbanBoard" class="kanban-board"></div>
+      </section>
+
+      <section id="projectsView" class="view">
+        <div class="section-head"><div><h2>Projects</h2><p>Manage all shared projects.</p></div></div>
+        <div id="projectsGrid" class="projects-grid"></div>
+      </section>
+
+      <section id="settingsView" class="view">
+        <div class="settings-grid">
+          <form id="profileForm" class="settings-card stack">
+            <h2>My Account</h2>
+            <label>Display name<input id="profileName" required maxlength="60"></label>
+            <label>New password<input id="newPassword" type="password" minlength="6" placeholder="Leave blank to keep current password"></label>
+            <button class="primary-btn" type="submit">Save Account</button>
+            <p id="profileMessage" class="message hidden" aria-live="polite"></p>
+          </form>
+
+          <div class="settings-card">
+            <h2>Invite User 2</h2>
+            <p>Share this code only with the second person who should access this workspace.</p>
+            <div class="invite-box"><span id="inviteCodeLabel"></span></div>
+            <p class="small-note">This workspace allows a maximum of two members.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="projectDialog">
+    <form id="projectForm" class="dialog-form">
+      <div class="dialog-head">
+        <div><h2 id="projectDialogTitle">New Project</h2><p>Create or edit a shared project.</p></div>
+        <button class="close-btn" data-close="projectDialog" type="button">×</button>
+      </div>
+      <input id="projectId" type="hidden">
+      <label>Project name<input id="projectNameInput" required maxlength="100"></label>
+      <label>Description<textarea id="projectDescriptionInput" rows="4"></textarea></label>
+      <label>Due date<span class="date-wrap"><input id="projectDueInput" type="date"></span></label>
+      <div class="dialog-actions">
+        <button id="deleteProjectBtn" class="danger-btn hidden" type="button">Delete</button>
+        <span></span>
+        <button class="secondary-btn" data-close="projectDialog" type="button">Cancel</button>
+        <button class="primary-btn" type="submit">Save Project</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="taskDialog">
+    <form id="taskForm" class="dialog-form">
+      <div class="dialog-head">
+        <div><span id="taskStatusLabel" class="eyebrow">TO DO</span><h2 id="taskDialogTitle">New Card</h2></div>
+        <button class="close-btn" data-close="taskDialog" type="button">×</button>
+      </div>
+      <input id="taskId" type="hidden">
+      <label>Card title<input id="taskTitleInput" required maxlength="140"></label>
+      <div class="form-grid">
+        <label>Project<select id="taskProjectInput" required></select></label>
+        <label>Assignee<select id="taskAssigneeInput" required></select></label>
+      </div>
+      <div class="form-grid">
+        <label>Status<select id="taskStatusInput">
+          <option>To Do</option><option>In Progress</option><option>Review</option><option>Done</option>
+        </select></label>
+        <label>Priority<select id="taskPriorityInput">
+          <option>Low</option><option selected>Medium</option><option>High</option><option>Urgent</option>
+        </select></label>
+      </div>
+      <label>Due date<span class="date-wrap"><input id="taskDueInput" type="date"></span></label>
+      <label>Description<textarea id="taskDescriptionInput" rows="4"></textarea></label>
+      <div>
+        <div class="check-head"><strong>Checklist</strong><button id="addChecklistBtn" class="link-btn" type="button">+ Add item</button></div>
+        <div id="checklistEditor" class="checklist-editor"></div>
+      </div>
+      <div class="dialog-actions">
+        <button id="deleteTaskBtn" class="danger-btn hidden" type="button">Delete</button>
+        <span></span>
+        <button class="secondary-btn" data-close="taskDialog" type="button">Cancel</button>
+        <button class="primary-btn" type="submit">Save Card</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast hidden" aria-live="polite"></div>
+
+  <script src="config.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
