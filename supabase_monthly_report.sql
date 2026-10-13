@@ -40,3 +40,6 @@ for each row execute procedure public.set_task_completed_at();
 
 create index if not exists tasks_assignee_completed_idx
   on public.tasks (team_id, assignee_id, completed_at);
+
+-- Per-user report header: logos, program title, positions, "Noted by".
+alter table public.profiles add column if not exists report_settings jsonb not null default '{}'::jsonb;

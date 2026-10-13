@@ -358,67 +358,55 @@ dialog::backdrop{background:rgba(24,24,27,.32);-webkit-backdrop-filter:blur(4px)
 .toast button:hover{color:#fff}
 
 /* =========================================================
-   MONTHLY REPORT
+   ACCOMPLISHMENT REPORT
    ========================================================= */
-.report-controls{display:grid;grid-template-columns:200px 220px 1fr;gap:12px;align-items:end;background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px 18px;box-shadow:var(--sh-1);margin-bottom:16px}
-.report-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.report-controls{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px 18px;box-shadow:var(--sh-1);margin-bottom:16px}
+.report-controls>label{width:180px}
+.report-actions{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
 .report-notice{background:var(--medium-soft);color:var(--medium-text);border-radius:var(--r);padding:11px 14px;font-size:13px;margin-bottom:16px;line-height:1.5}
 .report-notice code{background:rgba(0,0,0,.06)}
-.report-doc{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-2);padding:44px 48px;max-width:920px;margin:0 auto;color:var(--text)}
-.rpt-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:22px;border-bottom:1px solid var(--line)}
-.rpt-brand{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
-.rpt-brand strong{color:var(--text);display:block;font-size:14px}
-.rpt-head h1{margin:22px 0 4px;font-size:26px;font-weight:650;letter-spacing:-.03em}
-.rpt-head .rpt-period{font-size:15px;color:var(--text-2)}
-.rpt-meta{display:grid;gap:6px;font-size:12.5px;text-align:right;color:var(--muted);white-space:nowrap}
-.rpt-meta b{color:var(--text);font-weight:600}
-.rpt-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin:24px 0 30px}
-.rpt-stats div{background:var(--panel-2);padding:14px 16px}
-.rpt-stats strong{display:block;font-size:24px;font-weight:650;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.rpt-stats span{font-size:12px;color:var(--muted);font-weight:500}
-.rpt-section{margin-top:26px}
-.rpt-section h2{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 10px}
-.rpt-project{font-size:15px;font-weight:650;margin:20px 0 8px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-.rpt-project span{font-size:12px;color:var(--muted);font-weight:500}
-.rpt-table{width:100%;border-collapse:collapse;font-size:13px}
-.rpt-table th{text-align:left;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:8px 10px;border-bottom:1px solid var(--line);background:var(--panel-2)}
-.rpt-table td{padding:11px 10px;border-bottom:1px solid var(--line-2);vertical-align:top;line-height:1.5}
-.rpt-table td:first-child{white-space:nowrap;color:var(--text-2);width:90px}
-.rpt-table .t-title{font-weight:600}
-.rpt-table .t-desc{color:var(--muted);font-size:12.5px;margin-top:2px;white-space:pre-line}
-.rpt-table .t-acc{white-space:pre-line}
-.rpt-table .t-none{color:var(--faint)}
-.rpt-table .t-pri{white-space:nowrap;width:90px}
-.rpt-empty{padding:26px;text-align:center;color:var(--muted);border:1px dashed #d8d8d2;border-radius:var(--r);font-size:13px}
-.rpt-sign{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px}
-.rpt-sign div{border-top:1px solid var(--text-2);padding-top:8px;font-size:12px;color:var(--muted)}
-.rpt-sign b{display:block;color:var(--text);font-size:13px;font-weight:600}
+.report-paper{background:#fff;max-width:880px;margin:0 auto;padding:44px 52px 56px;border:1px solid var(--line);border-radius:6px;box-shadow:var(--sh-2);font-family:Arial,Helvetica,sans-serif;color:#000}
+.ar-scroll{overflow-x:auto}
+.ar-logo{text-align:center;margin-bottom:12px}
+.ar-logo img{max-width:100%;max-height:90px}
+.ar-logo-placeholder{display:block;width:100%;border:1px dashed #c9c9c3;background:var(--panel-2);color:var(--muted);padding:18px;text-align:center;font-size:12px;font-weight:600;border-radius:8px;margin-bottom:14px;font-family:inherit}
+.ar-logo-placeholder:hover{border-color:var(--accent);color:var(--accent)}
+.ar-titles{text-align:center;font-weight:700;font-size:11.5px;line-height:1.8;margin-bottom:16px}
+.ar-table{width:100%;min-width:620px;border-collapse:collapse;font-size:10.5px;table-layout:fixed}
+.ar-table th{background:#1f3a5f;color:#fff;font-weight:700;border:1px solid #000;padding:5px 6px;text-align:center}
+.ar-table td{border:1px solid #000;padding:7px 6px;vertical-align:middle;line-height:1.35;white-space:pre-line;overflow-wrap:anywhere}
+.ar-table td.ar-no{text-align:center}
+.ar-table td.ar-acc{white-space:normal}
+.ar-table .ar-bullet{padding-left:9px;text-indent:-9px}
+.ar-table td.ar-empty{text-align:center;color:#666;padding:22px}
+.ar-sign{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:52px 7% 0;font-size:11px;line-height:1.55}
+.ar-sign .ar-lbl{margin-bottom:26px}
+.ar-sign b{display:block}
+.rs-logo-preview{border:1px dashed #d4d4ce;border-radius:10px;min-height:70px;display:grid;place-items:center;padding:10px;background:var(--panel-2);color:var(--faint);font-size:12px}
+.rs-logo-preview img{max-width:100%;max-height:80px}
+.rs-logo-actions{display:flex;align-items:center;gap:12px;margin-top:8px}
+.file-btn{display:inline-flex;cursor:pointer}
+.field-label{font-size:12px;font-weight:600;color:var(--text-2);display:block;margin-bottom:7px}
 .task-acc-hint{font-weight:400;color:var(--muted);font-size:11.5px}
-@media(max-width:850px){.report-controls{grid-template-columns:1fr 1fr}.report-actions{grid-column:1/-1;justify-content:stretch}.report-actions>*{flex:1}}
 @media(max-width:1100px){.kanban-board.cols-3{grid-template-columns:repeat(3,280px)}}
+@media(max-width:850px){.report-controls>label{width:calc(50% - 6px)}.report-actions{margin-left:0;width:100%}.report-actions>*{flex:1}}
 @media(max-width:620px){
   .kanban-board.cols-3{grid-template-columns:repeat(3,85vw)}
-  .report-controls{grid-template-columns:1fr}
-  .report-doc{padding:24px 18px}
-  .rpt-head{flex-direction:column}.rpt-meta{text-align:left}
-  .rpt-stats{grid-template-columns:1fr 1fr}
-  .rpt-table thead{display:none}
-  .rpt-table tr{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:10px 0;border-bottom:1px solid var(--line-2)}
-  .rpt-table td{border:0;padding:0}
-  .rpt-table td.t-acc-cell,.rpt-table td.t-pri{grid-column:2}
-  .rpt-sign{grid-template-columns:1fr;gap:28px}
+  .report-controls>label{width:100%}
+  .report-paper{padding:22px 14px 30px}
+  .ar-sign{margin:40px 0 0}
 }
 @media print{
-  @page{margin:14mm}
+  @page{size:A4 portrait;margin:12mm}
   body{background:#fff}
-  .sidebar,.topbar,.mobile-nav,.report-controls,.report-notice,.toast,dialog{display:none!important}
+  .sidebar,.topbar,.mobile-nav,.report-controls,.report-notice,.toast,dialog,.ar-logo-placeholder{display:none!important}
   .app-shell{display:block}
   .main{padding:0;max-width:none}
   .view{animation:none!important}
-  .report-doc{border:0;box-shadow:none;padding:0;max-width:none}
-  .rpt-stats div,.rpt-table th{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .rpt-table tr{break-inside:avoid}
-  .rpt-sign{break-inside:avoid}
+  .report-paper{border:0;box-shadow:none;padding:0;max-width:none;border-radius:0}
+  .ar-table{min-width:0}
+  .ar-table th{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .ar-table tr,.ar-sign{break-inside:avoid}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -610,16 +598,25 @@ dialog::backdrop{background:rgba(24,24,27,.32);-webkit-backdrop-filter:blur(4px)
 
       <section id="reportsView" class="view">
         <div class="report-controls">
-          <label>Month<input id="reportMonth" type="month"></label>
+          <label id="reportMonthField">Month<input id="reportMonth" type="month"></label>
+          <label>Period<select id="reportPeriod">
+            <option value="first">1st – 15th</option>
+            <option value="second">16th – end of month</option>
+            <option value="month">Whole month</option>
+            <option value="custom">Custom dates</option>
+          </select></label>
+          <label id="reportFromField" class="hidden">From<input id="reportFrom" type="date"></label>
+          <label id="reportToField" class="hidden">To<input id="reportTo" type="date"></label>
           <label>Team member<select id="reportMember"></select></label>
           <div class="report-actions">
-            <button id="reportCsv" class="secondary-btn" type="button">Download CSV</button>
-            <button id="reportWord" class="secondary-btn" type="button">Download Word</button>
+            <button id="reportSettingsBtn" class="secondary-btn" type="button">Header &amp; signatories</button>
+            <button id="reportCsv" class="secondary-btn" type="button">CSV</button>
+            <button id="reportWord" class="secondary-btn" type="button">Word</button>
             <button id="reportPrint" class="primary-btn" type="button">Print / Save PDF</button>
           </div>
         </div>
         <div id="reportNotice" class="report-notice hidden"></div>
-        <article id="reportDoc" class="report-doc"></article>
+        <article id="reportDoc" class="report-paper"></article>
       </section>
 
       <section id="settingsView" class="view">
@@ -650,8 +647,8 @@ dialog::backdrop{background:rgba(24,24,27,.32);-webkit-backdrop-filter:blur(4px)
         <button class="close-btn" data-close="projectDialog" type="button">×</button>
       </div>
       <input id="projectId" type="hidden">
-      <label>Project name<input id="projectNameInput" required maxlength="100"></label>
-      <label>Description<textarea id="projectDescriptionInput" rows="4"></textarea></label>
+      <label>Project / target activity<input id="projectNameInput" placeholder="e.g. Operations Support" required maxlength="100"></label>
+      <label>Tasks / description <span class="task-acc-hint">Shown in the “Tasks” column of accomplishment reports.</span><textarea id="projectDescriptionInput" rows="4" placeholder="e.g. Handled administrative processes including cash advance preparation, travel arrangements, salary and liquidation of expenses."></textarea></label>
       <label>Due date<span class="date-wrap"><input id="projectDueInput" type="date"></span></label>
       <div class="dialog-actions">
         <button id="deleteProjectBtn" class="danger-btn hidden" type="button">Delete</button>
@@ -684,7 +681,7 @@ dialog::backdrop{background:rgba(24,24,27,.32);-webkit-backdrop-filter:blur(4px)
       </div>
       <label>Due date<span class="date-wrap"><input id="taskDueInput" type="date"></span></label>
       <label>Description<textarea id="taskDescriptionInput" rows="3" placeholder="What is this task about?"></textarea></label>
-      <label id="taskAccomplishmentField">Accomplishment notes <span class="task-acc-hint">What was delivered or achieved — appears in the monthly report.</span><textarea id="taskAccomplishmentInput" rows="3" placeholder="e.g. Launched the new homepage; reduced load time by 40%"></textarea></label>
+      <label id="taskAccomplishmentField">Accomplishment notes <span class="task-acc-hint">Each line becomes a bullet under “Actual Accomplishment”. Leave blank to use the card title.</span><textarea id="taskAccomplishmentInput" rows="3" placeholder="e.g. Processed cash advance for initial SailBoat inspection"></textarea></label>
       <div>
         <div class="check-head"><strong>Checklist</strong><button id="addChecklistBtn" class="link-btn" type="button">+ Add item</button></div>
         <div id="checklistEditor" class="checklist-editor"></div>
@@ -694,6 +691,39 @@ dialog::backdrop{background:rgba(24,24,27,.32);-webkit-backdrop-filter:blur(4px)
         <span></span>
         <button class="secondary-btn" data-close="taskDialog" type="button">Cancel</button>
         <button class="primary-btn" type="submit">Save Card</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="reportSettingsDialog">
+    <form id="reportSettingsForm" class="dialog-form">
+      <div class="dialog-head">
+        <div><h2>Report header &amp; signatories</h2><p>Printed on your accomplishment reports.</p></div>
+        <button class="close-btn" data-close="reportSettingsDialog" type="button">×</button>
+      </div>
+      <div>
+        <span class="field-label">Header logos</span>
+        <div id="rsLogoPreview" class="rs-logo-preview"></div>
+        <div class="rs-logo-actions">
+          <label class="secondary-btn file-btn">Upload image<input id="rsLogoInput" type="file" accept="image/*" hidden></label>
+          <button id="rsLogoRemove" class="link-btn" type="button">Remove</button>
+        </div>
+        <p class="small-note">Tip: use one image with all your logos side by side (PNG or JPG).</p>
+      </div>
+      <label>Program / project title<textarea id="rsTitle" rows="2" placeholder="e.g. Technical Enhancement, Market Validation, and Pre-Commercialization of SESSY E-Boat Technology"></textarea></label>
+      <label>Report name<input id="rsReportName" placeholder="Accomplishment Report"></label>
+      <div class="form-grid">
+        <label>Prepared by (your full name)<input id="rsName" placeholder="e.g. Alyssa Lois M. Dolor"></label>
+        <label>Your position<input id="rsPosition" placeholder="e.g. Project Administrative Assistant IV"></label>
+      </div>
+      <div class="form-grid">
+        <label>Noted by<input id="rsNotedName" placeholder="e.g. Engr. Febus Reidj Cruz"></label>
+        <label>Their position<input id="rsNotedPosition" placeholder="e.g. Project Leader"></label>
+      </div>
+      <div class="dialog-actions">
+        <span></span><span></span>
+        <button class="secondary-btn" data-close="reportSettingsDialog" type="button">Cancel</button>
+        <button class="primary-btn" type="submit">Save</button>
       </div>
     </form>
   </dialog>
@@ -745,6 +775,10 @@ let reloadTimer = null;
 let reportColumns = null; // true once the completed_at / accomplishment columns exist
 let reportMonth = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`; })();
 let reportMemberId = "";
+let reportSettingsColumn = null; // true once profiles.report_settings exists
+let reportPeriod = new Date().getDate() <= 15 ? "first" : "second";
+let reportFrom = "", reportTo = "";
+let rsLogoDraft = "";
 let calMonth = (() => { const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), 1); })();
 let selectedDate = dateKey(new Date());
 const statusBeforeDone = new Map();
@@ -883,9 +917,18 @@ async function route() {
 async function reloadData() {
   if (!team) return;
 
+  if (reportColumns === null) {
+    const [taskProbe, profileProbe] = await Promise.all([
+      supabase.from("tasks").select("completed_at,accomplishment").limit(1),
+      supabase.from("profiles").select("report_settings").limit(1)
+    ]);
+    reportColumns = !taskProbe.error;
+    reportSettingsColumn = !profileProbe.error;
+  }
+
   const [membersRes, projectsRes, tasksRes, checksRes] = await Promise.all([
     supabase.from("team_members")
-      .select("user_id,role,profiles(id,display_name)")
+      .select(`user_id,role,profiles(id,display_name${reportSettingsColumn ? ",report_settings" : ""})`)
       .eq("team_id", team.id)
       .order("joined_at"),
     supabase.from("projects")
@@ -901,11 +944,6 @@ async function reloadData() {
       .eq("team_id", team.id)
       .order("position")
   ]);
-
-  if (reportColumns === null) {
-    const probe = await supabase.from("tasks").select("completed_at,accomplishment").limit(1);
-    reportColumns = !probe.error;
-  }
 
   const firstError = [membersRes, projectsRes, tasksRes, checksRes].find(r => r.error)?.error;
   if (firstError) {
@@ -1455,115 +1493,125 @@ $("calToday").addEventListener("click", () => {
 ["calMineOnly","calShowDone"].forEach(id => $(id).addEventListener("change", renderCalendar));
 
 
-// ---------- Monthly accomplishment report ----------
+// ---------- Accomplishment report ----------
 function completedKey(t) {
   if (t.status !== "Done") return null;
   const stamp = t.completed_at || t.updated_at;
   return stamp ? dateKey(new Date(stamp)) : null;
 }
 
-function monthLabel(ym) {
-  const [y, m] = ym.split("-").map(Number);
-  return new Date(y, m - 1, 1).toLocaleDateString(undefined, {month:"long", year:"numeric"});
+const settingsStorageKey = id => `dualflow-report-settings-${id}`;
+
+function reportSettingsFor(userId) {
+  let saved = members.find(m => m.user_id === userId)?.profiles?.report_settings;
+  if (!reportSettingsColumn && userId === session.user.id) {
+    try { saved = JSON.parse(localStorage.getItem(settingsStorageKey(userId)) || "null"); } catch { saved = null; }
+  }
+  return {logo:"", title:"", reportName:"", fullName:"", position:"", notedName:"", notedPosition:"", ...(saved || {})};
+}
+
+function reportRange() {
+  const [y, m] = reportMonth.split("-").map(Number);
+  const last = new Date(y, m, 0).getDate();
+  const day = d => `${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+  if (reportPeriod === "first") return {from:day(1), to:day(15)};
+  if (reportPeriod === "second") return {from:day(16), to:day(last)};
+  if (reportPeriod === "custom" && reportFrom && reportTo) {
+    return reportFrom <= reportTo ? {from:reportFrom, to:reportTo} : {from:reportTo, to:reportFrom};
+  }
+  return {from:day(1), to:day(last)};
+}
+
+function rangeLabel({from, to}) {
+  const a = new Date(from + "T00:00:00"), b = new Date(to + "T00:00:00");
+  const mon = d => d.toLocaleDateString("en-US", {month:"long"});
+  if (a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth()) {
+    return from === to ? `${mon(a)} ${a.getDate()}, ${a.getFullYear()}` : `${mon(a)} ${a.getDate()}-${b.getDate()}, ${a.getFullYear()}`;
+  }
+  if (a.getFullYear() === b.getFullYear()) return `${mon(a)} ${a.getDate()} - ${mon(b)} ${b.getDate()}, ${b.getFullYear()}`;
+  return `${mon(a)} ${a.getDate()}, ${a.getFullYear()} - ${mon(b)} ${b.getDate()}, ${b.getFullYear()}`;
+}
+
+function accomplishmentBullets(t) {
+  const lines = (t.accomplishment || "").split(/\n+/).map(l => l.replace(/^\s*[-•*]\s*/, "").trim()).filter(Boolean);
+  return lines.length ? lines : [t.title];
 }
 
 function reportData() {
   const memberId = reportMemberId || session.user.id;
-  const person = memberProfile(memberId);
-  const completed = tasks
-    .filter(t => t.assignee_id === memberId && completedKey(t)?.startsWith(reportMonth))
-    .sort((a, b) => completedKey(a).localeCompare(completedKey(b)));
-  const inProgress = tasks
-    .filter(t => t.assignee_id === memberId && (t.status === "In Progress" || t.status === "Review"))
-    .sort(byUrgency);
-  const withDue = completed.filter(t => t.due_date);
-  const onTime = withDue.filter(t => completedKey(t) <= t.due_date).length;
-  return {memberId, name:person?.display_name || "Team member", completed, inProgress, withDue, onTime};
+  const range = reportRange();
+  const settings = reportSettingsFor(memberId);
+  const name = settings.fullName || memberProfile(memberId)?.display_name || "Team member";
+  const done = tasks.filter(t => {
+    if (t.assignee_id !== memberId) return false;
+    const k = completedKey(t);
+    return k && k >= range.from && k <= range.to;
+  });
+  const rows = projects.map(p => {
+    const list = done.filter(t => t.project_id === p.id).sort((a, b) => completedKey(a).localeCompare(completedKey(b)));
+    return list.length ? {project:p, bullets:list.flatMap(accomplishmentBullets)} : null;
+  }).filter(Boolean);
+  return {memberId, range, settings, name, rows, count:done.length};
+}
+
+function reportHtml(r, logoSrc) {
+  const s = r.settings;
+  const logo = s.logo
+    ? `<div class="ar-logo"><img src="${logoSrc || s.logo}" alt=""></div>`
+    : (logoSrc === undefined ? `<button class="ar-logo-placeholder" data-open-report-settings type="button">+ Add your header logos, program title and signatories</button>` : "");
+  const body = r.rows.length ? r.rows.map((row, i) => `<tr>
+      <td class="ar-no">${i + 1}</td>
+      <td>${escapeHtml(row.project.name)}</td>
+      <td>${escapeHtml(row.project.description || "")}</td>
+      <td class="ar-acc">${row.bullets.map(b => `<div class="ar-bullet">• ${escapeHtml(b)}</div>`).join("")}</td>
+    </tr>`).join("")
+    : `<tr><td class="ar-empty" colspan="4">No completed tasks for ${escapeHtml(r.name)} from ${escapeHtml(rangeLabel(r.range))}.</td></tr>`;
+
+  return `${logo}
+    <div class="ar-titles">
+      ${s.title ? `<div>${escapeHtml(s.title)}</div>` : ""}
+      <div>${escapeHtml(s.reportName || "Accomplishment Report")}</div>
+      <div>Period Covered: ${escapeHtml(rangeLabel(r.range))}</div>
+    </div>
+    <div class="ar-scroll"><table class="ar-table">
+      <colgroup><col style="width:6%"><col style="width:24%"><col style="width:33%"><col style="width:37%"></colgroup>
+      <thead><tr><th>No.</th><th>Target Activity</th><th>Tasks</th><th>Actual Accomplishment</th></tr></thead>
+      <tbody>${body}</tbody>
+    </table></div>
+    <div class="ar-sign">
+      <div><div class="ar-lbl">Prepared by:</div><b>${escapeHtml(r.name)}</b>${escapeHtml(s.position)}</div>
+      <div><div class="ar-lbl">Noted by:</div><b>${escapeHtml(s.notedName) || "&nbsp;"}</b>${escapeHtml(s.notedPosition)}</div>
+    </div>`;
 }
 
 function renderReport() {
   if (!team) return;
-  const sel = $("reportMember");
   if (!reportMemberId || !members.some(m => m.user_id === reportMemberId)) reportMemberId = session.user.id;
-  sel.innerHTML = members.map(m => `<option value="${m.user_id}">${escapeHtml(m.profiles?.display_name || "User")}${m.user_id === session.user.id ? " (you)" : ""}</option>`).join("");
-  sel.value = reportMemberId;
+  $("reportMember").innerHTML = members.map(m => `<option value="${m.user_id}">${escapeHtml(m.profiles?.display_name || "User")}${m.user_id === session.user.id ? " (you)" : ""}</option>`).join("");
+  $("reportMember").value = reportMemberId;
   $("reportMonth").value = reportMonth;
+  $("reportPeriod").value = reportPeriod;
+  const custom = reportPeriod === "custom";
+  $("reportMonthField").classList.toggle("hidden", custom);
+  $("reportFromField").classList.toggle("hidden", !custom);
+  $("reportToField").classList.toggle("hidden", !custom);
 
-  $("reportNotice").classList.toggle("hidden", reportColumns !== false);
-  $("reportNotice").innerHTML = `Completion dates are estimated from each card's last edit, and accomplishment notes are off. Run <code>supabase_monthly_report.sql</code> in the Supabase SQL Editor once to record exact completion dates and notes.`;
+  const notes = [];
+  if (reportColumns === false) notes.push("completion dates are estimated from each card's last edit and accomplishment notes are off");
+  if (reportSettingsColumn === false) notes.push("your report header is saved on this device only");
+  $("reportNotice").classList.toggle("hidden", !notes.length);
+  $("reportNotice").innerHTML = `Database upgrade pending: ${notes.join("; ")}. Run <code>supabase_monthly_report.sql</code> once in the Supabase SQL Editor to fix this.`;
 
   $("reportDoc").innerHTML = reportHtml(reportData());
 }
 
-function reportHtml(r) {
-  const projectsWorked = [...new Set(r.completed.map(t => t.project_id))];
-  const highImpact = r.completed.filter(t => t.priority === "Urgent" || t.priority === "High").length;
-  const today = new Date().toLocaleDateString(undefined, {year:"numeric", month:"long", day:"numeric"});
-  const priority = t => `<span class="card-label label-${t.priority.toLowerCase()}">${escapeHtml(t.priority)}</span>`;
-
-  const grouped = projectsWorked.map(pid => {
-    const list = r.completed.filter(t => t.project_id === pid);
-    return `<div class="rpt-project">${escapeHtml(projectById(pid)?.name || "No project")}<span>${list.length} task${list.length === 1 ? "" : "s"}</span></div>
-    <table class="rpt-table">
-      <thead><tr><th>Completed</th><th>Task &amp; description</th><th>Accomplishment</th><th>Priority</th></tr></thead>
-      <tbody>${list.map(t => `<tr>
-        <td>${formatDate(completedKey(t))}</td>
-        <td><div class="t-title">${escapeHtml(t.title)}</div>${t.description ? `<div class="t-desc">${escapeHtml(t.description)}</div>` : ""}</td>
-        <td class="t-acc-cell">${t.accomplishment ? `<div class="t-acc">${escapeHtml(t.accomplishment)}</div>` : `<span class="t-none">—</span>`}</td>
-        <td class="t-pri">${priority(t)}</td>
-      </tr>`).join("")}</tbody>
-    </table>`;
-  }).join("");
-
-  return `
-    <header class="rpt-head">
-      <div>
-        <div class="rpt-brand"><div class="logo">DF</div><div><strong>${escapeHtml(team.name)}</strong>DualFlow workspace</div></div>
-        <h1>Monthly Accomplishment Report</h1>
-        <div class="rpt-period">${monthLabel(reportMonth)}</div>
-      </div>
-      <div class="rpt-meta">
-        <span>Prepared for <b>${escapeHtml(r.name)}</b></span>
-        <span>Period <b>${monthLabel(reportMonth)}</b></span>
-        <span>Generated <b>${today}</b></span>
-      </div>
-    </header>
-
-    <div class="rpt-stats">
-      <div><strong>${r.completed.length}</strong><span>Tasks completed</span></div>
-      <div><strong>${highImpact}</strong><span>High / urgent priority</span></div>
-      <div><strong>${projectsWorked.length}</strong><span>Projects contributed to</span></div>
-      <div><strong>${r.withDue.length ? Math.round(r.onTime / r.withDue.length * 100) + "%" : "—"}</strong><span>Delivered on time${r.withDue.length ? ` (${r.onTime}/${r.withDue.length})` : ""}</span></div>
-    </div>
-
-    <section class="rpt-section">
-      <h2>Completed work</h2>
-      ${r.completed.length ? grouped : `<div class="rpt-empty">No completed tasks recorded for ${escapeHtml(r.name)} in ${monthLabel(reportMonth)}.</div>`}
-    </section>
-
-    ${r.inProgress.length ? `<section class="rpt-section">
-      <h2>Work in progress</h2>
-      <table class="rpt-table">
-        <thead><tr><th>Due</th><th>Task &amp; description</th><th>Status</th><th>Priority</th></tr></thead>
-        <tbody>${r.inProgress.map(t => `<tr>
-          <td>${t.due_date ? formatDate(t.due_date) : "—"}</td>
-          <td><div class="t-title">${escapeHtml(t.title)}</div><div class="t-desc">${escapeHtml(projectById(t.project_id)?.name || "")}${t.description ? " — " + escapeHtml(t.description) : ""}</div></td>
-          <td class="t-acc-cell">${escapeHtml(t.status)}</td>
-          <td class="t-pri">${priority(t)}</td>
-        </tr>`).join("")}</tbody>
-      </table>
-    </section>` : ""}
-
-    <div class="rpt-sign">
-      <div><b>${escapeHtml(r.name)}</b>Prepared by · Date</div>
-      <div><b>&nbsp;</b>Reviewed &amp; approved by · Date</div>
-    </div>`;
-}
-
 function reportFileName(ext) {
   const r = reportData();
-  const slug = r.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "member";
-  return `accomplishment-report-${slug}-${reportMonth}.${ext}`;
+  const first = (memberProfile(r.memberId)?.display_name || r.name).split(/\s+/)[0].replace(/[^\p{L}\p{N}-]/gu, "") || "Report";
+  const a = new Date(r.range.from + "T00:00:00"), b = new Date(r.range.to + "T00:00:00");
+  const month = a.toLocaleDateString("en-US", {month:"long"}).toUpperCase();
+  const span = a.getMonth() === b.getMonth() ? `${a.getDate()}-${b.getDate()}` : `${a.getDate()}-${b.toLocaleDateString("en-US",{month:"long"}).toUpperCase()}_${b.getDate()}`;
+  return `${first}_Accomplishment_Report_-_${month}_${span}_${b.getFullYear()}.${ext}`;
 }
 
 function downloadBlob(content, type, filename) {
@@ -1575,6 +1623,17 @@ function downloadBlob(content, type, filename) {
 }
 
 $("reportMonth").addEventListener("change", () => { if ($("reportMonth").value) { reportMonth = $("reportMonth").value; renderReport(); } });
+$("reportPeriod").addEventListener("change", () => {
+  reportPeriod = $("reportPeriod").value;
+  if (reportPeriod === "custom" && !reportFrom) {
+    const r = reportRange();
+    reportFrom = `${reportMonth}-01`; reportTo = r.to;
+    $("reportFrom").value = reportFrom; $("reportTo").value = reportTo;
+  }
+  renderReport();
+});
+$("reportFrom").addEventListener("change", () => { reportFrom = $("reportFrom").value; renderReport(); });
+$("reportTo").addEventListener("change", () => { reportTo = $("reportTo").value; renderReport(); });
 $("reportMember").addEventListener("change", () => { reportMemberId = $("reportMember").value; renderReport(); });
 
 $("reportPrint").addEventListener("click", () => {
@@ -1587,32 +1646,203 @@ $("reportPrint").addEventListener("click", () => {
 $("reportCsv").addEventListener("click", () => {
   const r = reportData();
   const cell = v => `"${String(v ?? "").replace(/"/g, '""')}"`;
-  const rows = [["Team member","Month","Completed on","Project","Task","Description","Accomplishment","Priority","Due date","On time"]];
-  r.completed.forEach(t => rows.push([
-    r.name, monthLabel(reportMonth), completedKey(t), projectById(t.project_id)?.name || "",
-    t.title, t.description, t.accomplishment || "", t.priority, t.due_date || "",
-    t.due_date ? (completedKey(t) <= t.due_date ? "Yes" : "No") : ""
-  ]));
-  downloadBlob("﻿" + rows.map(row => row.map(cell).join(",")).join("\r\n"), "text/csv;charset=utf-8", reportFileName("csv"));
+  const lines = [
+    [r.settings.title], [r.settings.reportName || "Accomplishment Report"], [`Period Covered: ${rangeLabel(r.range)}`], [],
+    ["No.", "Target Activity", "Tasks", "Actual Accomplishment"],
+    ...r.rows.map((row, i) => [i + 1, row.project.name, row.project.description || "", row.bullets.map(b => `• ${b}`).join("\n")]),
+    [], ["Prepared by:", "", "Noted by:"], [r.name, "", r.settings.notedName], [r.settings.position, "", r.settings.notedPosition]
+  ];
+  downloadBlob("\ufeff" + lines.map(row => row.map(cell).join(",")).join("\r\n"), "text/csv;charset=utf-8", reportFileName("csv"));
 });
 
-$("reportWord").addEventListener("click", () => {
-  const css = `body{font-family:Calibri,Arial,sans-serif;color:#18181b;font-size:11pt}
-    h1{font-size:20pt;margin:12pt 0 2pt}h2{font-size:10pt;text-transform:uppercase;letter-spacing:1pt;color:#71717a;margin-top:18pt}
-    table{width:100%;border-collapse:collapse;margin-top:6pt}th,td{border:1px solid #e4e4e0;padding:6pt;text-align:left;vertical-align:top;font-size:10pt}
-    th{background:#f6f6f3;font-size:8.5pt;text-transform:uppercase;color:#71717a}.logo{display:none}
-    .rpt-meta span,.rpt-stats div{display:block}.rpt-stats strong{font-size:16pt;margin-right:6pt}.rpt-project{font-weight:bold;font-size:12pt;margin-top:12pt}
-    .rpt-project span{font-weight:normal;color:#71717a;font-size:9pt;margin-left:6pt}.t-desc{color:#71717a;font-size:9.5pt}.t-title{font-weight:bold}
-    .rpt-sign div{margin-top:36pt;border-top:1px solid #3f3f46;padding-top:4pt;width:45%;display:inline-block;margin-right:8%}.rpt-sign b{display:block}`;
-  const html = `<html><head><meta charset="utf-8"><title>Monthly Accomplishment Report</title><style>${css}</style></head><body>${reportHtml(reportData())}</body></html>`;
-  downloadBlob("﻿" + html, "application/msword", reportFileName("doc"));
+let docxLib = null;
+function loadDocxLib() {
+  if (docxLib) return docxLib;
+  docxLib = new Promise((resolve, reject) => {
+    const script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/docx@9.5.1/dist/index.iife.js";
+    script.onload = () => window.docx ? resolve(window.docx) : reject(new Error("Word library missing"));
+    script.onerror = () => { docxLib = null; reject(new Error("Could not load the Word library. Check your connection.")); };
+    document.head.appendChild(script);
+  });
+  return docxLib;
+}
+
+function imageSize(src) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload = () => resolve({w:img.naturalWidth, h:img.naturalHeight});
+    img.onerror = () => resolve(null);
+    img.src = src;
+  });
+}
+
+async function buildReportDocx(r) {
+  const D = await loadDocxLib();
+  const {Document, Packer, Paragraph, TextRun, ImageRun, Table, TableRow, TableCell, WidthType,
+    AlignmentType, VerticalAlign, ShadingType, BorderStyle} = D;
+  const CONTENT = 10466; // A4 width minus 0.5" margins, in twips
+  const widths = [0.06, 0.24, 0.33, 0.37].map(f => Math.round(CONTENT * f));
+  const line = {style:BorderStyle.SINGLE, size:4, color:"000000"};
+  const none = {style:BorderStyle.NONE, size:0, color:"FFFFFF"};
+  const run = (text, opts = {}) => new TextRun({text, font:"Arial", size:19, ...opts});
+  const para = (text, opts = {}, runOpts = {}) => new Paragraph({children:[run(text, runOpts)], ...opts});
+  const cell = (children, width, opts = {}) => new TableCell({
+    children, width:{size:width, type:WidthType.DXA}, verticalAlign:VerticalAlign.CENTER,
+    margins:{top:70, bottom:70, left:90, right:90}, ...opts
+  });
+  const lines = text => (text || "").split(/\n/).map(t => para(t));
+
+  const children = [];
+  const logo = r.settings.logo.match(/^data:image\/(png|jpe?g|gif|bmp);base64,(.+)$/);
+  if (logo) {
+    const size = await imageSize(r.settings.logo);
+    if (size) {
+      const scale = Math.min(520 / size.w, 72 / size.h);
+      const bytes = Uint8Array.from(atob(logo[2]), c => c.charCodeAt(0));
+      children.push(new Paragraph({alignment:AlignmentType.CENTER, spacing:{after:120}, children:[
+        new ImageRun({type:logo[1] === "jpeg" ? "jpg" : logo[1], data:bytes, transformation:{width:Math.round(size.w * scale), height:Math.round(size.h * scale)}})
+      ]}));
+    }
+  }
+  [r.settings.title, r.settings.reportName || "Accomplishment Report", `Period Covered: ${rangeLabel(r.range)}`]
+    .filter(Boolean)
+    .forEach((t, i, arr) => children.push(para(t, {alignment:AlignmentType.CENTER, spacing:{after:i === arr.length - 1 ? 240 : 40}}, {bold:true, size:20})));
+
+  const head = ["No.", "Target Activity", "Tasks", "Actual Accomplishment"].map((t, i) =>
+    cell([para(t, {alignment:AlignmentType.CENTER}, {bold:true, color:"FFFFFF"})], widths[i],
+      {shading:{type:ShadingType.CLEAR, color:"auto", fill:"1F3A5F"}}));
+  const body = r.rows.length ? r.rows.map((row, i) => new TableRow({cantSplit:true, children:[
+    cell([para(String(i + 1), {alignment:AlignmentType.CENTER})], widths[0]),
+    cell(lines(row.project.name), widths[1]),
+    cell(lines(row.project.description), widths[2]),
+    cell(row.bullets.map(b => para(`•\t${b}`, {indent:{left:200, hanging:200}, tabStops:[{type:"left", position:200}]})), widths[3])
+  ]})) : [new TableRow({children:[cell([para(`No completed tasks for ${r.name} from ${rangeLabel(r.range)}.`, {alignment:AlignmentType.CENTER})], CONTENT, {columnSpan:4})]})];
+
+  children.push(new Table({
+    width:{size:CONTENT, type:WidthType.DXA}, columnWidths:widths,
+    borders:{top:line, bottom:line, left:line, right:line, insideHorizontal:line, insideVertical:line},
+    rows:[new TableRow({tableHeader:true, children:head}), ...body]
+  }));
+
+  const signer = (label, who, title) => cell([
+    para(label, {spacing:{after:480}}),
+    para(who || " ", {}, {bold:true}),
+    para(title || " ")
+  ], CONTENT / 2, {verticalAlign:VerticalAlign.TOP, margins:{left:700, right:200, top:0, bottom:0}});
+  children.push(para(" ", {spacing:{before:600}}));
+  children.push(new Table({
+    width:{size:CONTENT, type:WidthType.DXA}, columnWidths:[CONTENT / 2, CONTENT / 2],
+    borders:{top:none, bottom:none, left:none, right:none, insideHorizontal:none, insideVertical:none},
+    rows:[new TableRow({cantSplit:true, children:[
+      signer("Prepared by:", r.name, r.settings.position),
+      signer("Noted by:", r.settings.notedName, r.settings.notedPosition)
+    ]})]
+  }));
+
+  const doc = new Document({
+    creator:r.name,
+    title:`${r.settings.reportName || "Accomplishment Report"} - ${rangeLabel(r.range)}`,
+    sections:[{properties:{page:{size:{width:11906, height:16838}, margin:{top:720, right:720, bottom:720, left:720}}}, children}]
+  });
+  return Packer.toBlob(doc);
+}
+
+$("reportWord").addEventListener("click", async () => {
+  const btn = $("reportWord");
+  btn.disabled = true;
+  try {
+    const blob = await buildReportDocx(reportData());
+    downloadBlob(blob, blob.type, reportFileName("docx"));
+  } catch (err) {
+    console.error(err);
+    toast(err.message || "Could not create the Word file.");
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+// ---------- Report header & signatories ----------
+function renderLogoPreview() {
+  $("rsLogoPreview").innerHTML = rsLogoDraft ? `<img src="${rsLogoDraft}" alt="Header logos">` : "No logo yet";
+  $("rsLogoRemove").classList.toggle("hidden", !rsLogoDraft);
+}
+
+function openReportSettings() {
+  const s = reportSettingsFor(session.user.id);
+  rsLogoDraft = s.logo;
+  $("rsTitle").value = s.title;
+  $("rsReportName").value = s.reportName;
+  $("rsName").value = s.fullName || profile.display_name || "";
+  $("rsPosition").value = s.position;
+  $("rsNotedName").value = s.notedName;
+  $("rsNotedPosition").value = s.notedPosition;
+  renderLogoPreview();
+  $("reportSettingsDialog").showModal();
+}
+
+function shrinkImage(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = reject;
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = reject;
+      img.onload = () => {
+        const scale = Math.min(1, 1600 / img.width, 220 / img.height);
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.round(img.width * scale);
+        canvas.height = Math.round(img.height * scale);
+        canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+        resolve(canvas.toDataURL("image/png"));
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+$("reportSettingsBtn").addEventListener("click", openReportSettings);
+$("reportDoc").addEventListener("click", e => { if (e.target.closest("[data-open-report-settings]")) openReportSettings(); });
+$("rsLogoInput").addEventListener("change", async () => {
+  const file = $("rsLogoInput").files[0];
+  $("rsLogoInput").value = "";
+  if (!file) return;
+  try { rsLogoDraft = await shrinkImage(file); renderLogoPreview(); }
+  catch { toast("That image could not be read."); }
+});
+$("rsLogoRemove").addEventListener("click", () => { rsLogoDraft = ""; renderLogoPreview(); });
+
+$("reportSettingsForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const settings = {
+    logo:rsLogoDraft,
+    title:$("rsTitle").value.trim(),
+    reportName:$("rsReportName").value.trim(),
+    fullName:$("rsName").value.trim(),
+    position:$("rsPosition").value.trim(),
+    notedName:$("rsNotedName").value.trim(),
+    notedPosition:$("rsNotedPosition").value.trim()
+  };
+  if (reportSettingsColumn) {
+    const { error } = await supabase.from("profiles").update({report_settings:settings}).eq("id", session.user.id);
+    if (error) return toast(error.message);
+    const me = members.find(m => m.user_id === session.user.id);
+    if (me?.profiles) me.profiles.report_settings = settings;
+  } else {
+    try { localStorage.setItem(settingsStorageKey(session.user.id), JSON.stringify(settings)); }
+    catch { return toast("Could not save on this device."); }
+  }
+  $("reportSettingsDialog").close();
+  renderReport();
+  toast("Report header saved");
 });
 
 function switchView(view) {
   document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
   document.querySelectorAll("[data-view]").forEach(v => v.classList.toggle("active", v.dataset.view === view));
   $(`${view}View`).classList.add("active");
-  $("pageTitle").textContent = {board:"Project Board", calendar:"Calendar", projects:"Projects", reports:"Monthly Report", settings:"Settings"}[view];
+  $("pageTitle").textContent = {board:"Project Board", calendar:"Calendar", projects:"Projects", reports:"Accomplishment Report", settings:"Settings"}[view];
   if (view === "calendar" && team) renderCalendar();
   if (view === "reports" && team) renderReport();
 }
