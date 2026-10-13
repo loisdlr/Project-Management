@@ -99,6 +99,30 @@ Both users can:
 - search/filter the board
 - see updates from the other user
 
+## Accomplishment report
+
+The **Reports** page builds each person's accomplishment report in this layout:
+
+| No. | Target Activity | Tasks | Actual Accomplishment |
+|-----|-----------------|-------|-----------------------|
+| 1 | *project name* | *project description* | • one bullet per card completed in the period |
+
+- **Target activity** is the project name and **Tasks** is the project description, so set your projects up as your work-plan activities (e.g. "Operations Support", "Procurement of components and materials", "Others / Project Matters").
+- **Actual accomplishment** lists the cards assigned to that person and completed in the period. Each line of a card's *Accomplishment notes* becomes a bullet; a card without notes uses its title.
+- **Period**: 1st–15th, 16th–end of month, whole month, or custom dates.
+- **Header & signatories**: upload your logos image, set the program title, your full name and position, and the "Noted by" name and position. Each user has their own.
+- Export with **Print / Save PDF**, **Word** (editable) or **CSV**.
+
+If your database was created before this feature, run `supabase_monthly_report.sql` once in **Supabase Dashboard → SQL Editor**. It adds:
+
+- `tasks.completed_at`: set automatically when a card moves to Done, cleared if it's reopened
+- `tasks.accomplishment`: the card's "Accomplishment notes"
+- `profiles.report_settings`: your report header and signatories
+
+Until you run it, completion dates are estimated from each card's last edit, the notes field is hidden, and the report header is saved only on the device you're using.
+
+Completed cards are hidden from the board. Turn on **Show completed** to see them.
+
 ## Security
 
 The browser uses only the Supabase Publishable Key. Database access is protected using Row Level Security policies tied to authenticated users and their workspace membership.
