@@ -192,6 +192,81 @@ dialog{border:0;border-radius:14px;width:min(620px,92vw);padding:0;box-shadow:0 
   }
 }
 
+/* =========================================================
+   CALENDAR DASHBOARD
+   ========================================================= */
+.mobile-nav{display:none}
+.cal-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.cal-tile{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+.cal-tile strong{display:block;font-size:26px;line-height:1.1;margin-bottom:3px}
+.cal-tile span{font-size:12px;color:var(--muted);font-weight:700}
+.cal-tile.t-overdue strong{color:#ae2e24}.cal-tile.t-today strong{color:var(--primary)}.cal-tile.t-week strong{color:#7f5f01}.cal-tile.t-urgent strong{color:#c9372c}
+.cal-layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px;align-items:start}
+.cal-main,.cal-panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:var(--shadow);min-width:0}
+.cal-side{display:grid;gap:14px;min-width:0}
+.cal-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.cal-nav{display:flex;align-items:center;gap:6px}
+.cal-nav h2{margin:0 6px;font-size:18px;min-width:160px;text-align:center}
+.icon-btn{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:#fff;font-size:18px;font-weight:700;color:#44546f;line-height:1}
+.icon-btn:hover{background:#f1f2f4}
+.cal-options{display:flex;gap:14px;flex-wrap:wrap}
+.toggle{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:#44546f;cursor:pointer}
+.toggle input{width:auto;margin:0}
+.cal-weekdays,.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.cal-weekdays div{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:0 6px 6px}
+.cal-grid{border-top:1px solid var(--line);border-left:1px solid var(--line);border-radius:8px;overflow:hidden}
+.cal-day{min-height:112px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:6px;display:flex;flex-direction:column;gap:4px;cursor:pointer;background:#fff;min-width:0}
+.cal-day:hover{background:#f7f8fa}
+.cal-day.outside{background:#fafbfc}.cal-day.outside .cal-num{color:#a5adba}
+.cal-day.selected{box-shadow:inset 0 0 0 2px var(--primary)}
+.cal-num{font-size:12px;font-weight:700;width:24px;height:24px;display:grid;place-items:center;border-radius:50%;flex:none}
+.cal-day.today .cal-num{background:var(--primary);color:#fff}
+.cal-chip{display:flex;align-items:center;gap:5px;font-size:11px;padding:3px 5px;border-radius:5px;background:#f1f2f4;border-left:3px solid #8590a2;min-width:0}
+.cal-chip input{width:13px;height:13px;margin:0;flex:none;cursor:pointer}
+.cal-chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.cal-chip span:hover{text-decoration:underline}
+.pri-low{border-left-color:#22a06b}.pri-medium{border-left-color:#e2b203}.pri-high{border-left-color:#fea362}.pri-urgent{border-left-color:#e34935}
+.cal-chip.pri-urgent{background:#ffeceb}
+.cal-chip.is-done{opacity:.65}
+.cal-chip.is-done span,.agenda-item.is-done .agenda-title{text-decoration:line-through;color:#8590a2}
+.cal-chip.is-overdue span{color:#ae2e24}
+.cal-project{font-size:10px;font-weight:800;color:#0747a6;background:#deebff;border-radius:4px;padding:2px 5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cal-more{font-size:10px;font-weight:700;color:var(--muted);padding-left:4px}
+.cal-dots{display:none;gap:3px;flex-wrap:wrap;justify-content:center}
+.cal-dot{width:6px;height:6px;border-radius:50%;background:#8590a2}
+.dot-low{background:#22a06b}.dot-medium{background:#e2b203}.dot-high{background:#fea362}.dot-urgent{background:#e34935}.dot-done{background:#c1c7d0}.dot-project{background:#579dff}
+.cal-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:11px;color:var(--muted);font-weight:600}
+.cal-legend span{display:flex;align-items:center;gap:5px}
+.cal-panel h3{margin:0;font-size:15px}
+.cal-panel-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px}
+.agenda-group{margin-top:12px}
+.agenda-group h4{margin:0 0 6px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;gap:6px;align-items:center}
+.agenda-group.g-overdue h4{color:#ae2e24}
+.agenda-item{display:grid;grid-template-columns:auto minmax(0,1fr);gap:9px;align-items:start;padding:8px 9px;border-radius:8px;border:1px solid var(--line);border-left:3px solid #8590a2;margin-bottom:6px;background:#fff}
+.agenda-item.pri-low{border-left-color:#22a06b}.agenda-item.pri-medium{border-left-color:#e2b203}.agenda-item.pri-high{border-left-color:#fea362}.agenda-item.pri-urgent{border-left-color:#e34935}
+.cal-panel-head .link-btn{font-size:13px}
+.agenda-item input{width:17px;height:17px;margin:1px 0 0;cursor:pointer}
+.agenda-title{font-size:13px;font-weight:700;cursor:pointer;line-height:1.3;overflow-wrap:anywhere}
+.agenda-title:hover{color:var(--primary)}
+.agenda-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;font-size:10px;color:var(--muted);align-items:center}
+.agenda-empty{font-size:12px;color:var(--muted);padding:6px 0}
+.agenda-project-due{font-size:12px;font-weight:700;color:#0747a6;background:#deebff;border-radius:7px;padding:7px 9px;margin-bottom:6px}
+@media(max-width:1150px){.cal-layout{grid-template-columns:1fr}.cal-side{grid-template-columns:1fr 1fr}}
+@media(max-width:850px){
+  .mobile-nav{display:flex;gap:6px;overflow-x:auto;margin:-8px 0 16px}
+  .mobile-nav button{flex:1;white-space:nowrap;border:1px solid var(--line);background:#fff;color:#44546f;border-radius:8px;padding:8px 10px;font-weight:700;font-size:12px}
+  .mobile-nav button.active{background:var(--sidebar);border-color:var(--sidebar);color:#fff}
+}
+@media(max-width:620px){
+  .cal-summary{grid-template-columns:1fr 1fr}
+  .cal-side{grid-template-columns:1fr}
+  .cal-main{padding:12px}
+  .cal-nav h2{min-width:0;font-size:16px}
+  .cal-weekdays div{text-align:center;padding:0 0 6px}
+  .cal-day{min-height:58px;padding:4px;align-items:center}
+  .cal-chip,.cal-project,.cal-more{display:none}
+  .cal-dots{display:flex}
+}
 </style>
 </head>
 <body>
@@ -282,6 +357,7 @@ dialog{border:0;border-radius:14px;width:min(620px,92vw);padding:0;box-shadow:0 
 
       <nav>
         <button class="nav-btn active" data-view="board" type="button">▦ Board</button>
+        <button class="nav-btn" data-view="calendar" type="button">▤ Calendar</button>
         <button class="nav-btn" data-view="projects" type="button">▣ Projects</button>
         <button class="nav-btn" data-view="settings" type="button">⚙ Settings</button>
       </nav>
@@ -307,6 +383,13 @@ dialog{border:0;border-radius:14px;width:min(620px,92vw);padding:0;box-shadow:0 
         </div>
       </header>
 
+      <nav class="mobile-nav" aria-label="Views">
+        <button class="active" data-view="board" type="button">Board</button>
+        <button data-view="calendar" type="button">Calendar</button>
+        <button data-view="projects" type="button">Projects</button>
+        <button data-view="settings" type="button">Settings</button>
+      </nav>
+
       <section id="boardView" class="view active">
         <div class="board-toolbar">
           <div>
@@ -325,6 +408,40 @@ dialog{border:0;border-radius:14px;width:min(620px,92vw);padding:0;box-shadow:0 
         </div>
         <div id="boardStats" class="stats-row"></div>
         <div id="kanbanBoard" class="kanban-board"></div>
+      </section>
+
+      <section id="calendarView" class="view">
+        <div id="calSummary" class="cal-summary"></div>
+        <div class="cal-layout">
+          <div class="cal-main">
+            <div class="cal-toolbar">
+              <div class="cal-nav">
+                <button id="calPrev" class="icon-btn" type="button" aria-label="Previous month">‹</button>
+                <h2 id="calMonthLabel"></h2>
+                <button id="calNext" class="icon-btn" type="button" aria-label="Next month">›</button>
+                <button id="calToday" class="secondary-btn" type="button">Today</button>
+              </div>
+              <div class="cal-options">
+                <label class="toggle"><input id="calMineOnly" type="checkbox"> My cards only</label>
+                <label class="toggle"><input id="calShowDone" type="checkbox" checked> Show done</label>
+              </div>
+            </div>
+            <div id="calWeekdays" class="cal-weekdays"></div>
+            <div id="calGrid" class="cal-grid"></div>
+            <div class="cal-legend">
+              <span><i class="cal-dot dot-urgent"></i>Urgent</span>
+              <span><i class="cal-dot dot-high"></i>High</span>
+              <span><i class="cal-dot dot-medium"></i>Medium</span>
+              <span><i class="cal-dot dot-low"></i>Low</span>
+              <span><i class="cal-dot dot-project"></i>Project due</span>
+              <span><i class="cal-dot dot-done"></i>Done</span>
+            </div>
+          </div>
+          <aside class="cal-side">
+            <div id="calDayPanel" class="cal-panel"></div>
+            <div id="calAgenda" class="cal-panel"></div>
+          </aside>
+        </div>
       </section>
 
       <section id="projectsView" class="view">
@@ -451,6 +568,9 @@ let realtimeChannel = null;
 let draggedTaskId = null;
 let checklistDraft = [];
 let reloadTimer = null;
+let calMonth = (() => { const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), 1); })();
+let selectedDate = dateKey(new Date());
+const statusBeforeDone = new Map();
 
 function showOnly(id) {
   ["configScreen", "authScreen", "workspaceScreen", "appShell"].forEach(x => $(x).classList.add("hidden"));
@@ -641,6 +761,7 @@ function renderAll() {
   renderFilters();
   renderBoard();
   renderProjects();
+  renderCalendar();
 }
 
 function renderTeam() {
@@ -907,12 +1028,212 @@ async function saveChecklist(taskId) {
   }
 }
 
+
+// ---------- Calendar dashboard ----------
+function dateKey(d) {
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+}
+
+function addDays(key, n) {
+  const d = new Date(key + "T00:00:00");
+  d.setDate(d.getDate() + n);
+  return dateKey(d);
+}
+
+function longDate(key) {
+  return new Date(key + "T00:00:00").toLocaleDateString(undefined, {weekday:"short", month:"short", day:"numeric"});
+}
+
+const PRIORITY_RANK = {Urgent:0, High:1, Medium:2, Low:3};
+function byUrgency(a, b) {
+  return (a.status === "Done") - (b.status === "Done") ||
+    (a.due_date || "9999").localeCompare(b.due_date || "9999") ||
+    PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority];
+}
+
+function calendarTasks() {
+  const mine = $("calMineOnly").checked;
+  const showDone = $("calShowDone").checked;
+  return tasks.filter(t => (!mine || t.assignee_id === session.user.id) && (showDone || t.status !== "Done"));
+}
+
+function renderCalendar() {
+  const today = dateKey(new Date());
+  const weekEnd = addDays(today, 7);
+  const visible = calendarTasks();
+  const open = visible.filter(t => t.status !== "Done");
+
+  const overdueList = open.filter(t => t.due_date && t.due_date < today).sort(byUrgency);
+  const todayList = open.filter(t => t.due_date === today).sort(byUrgency);
+  const weekList = open.filter(t => t.due_date && t.due_date > today && t.due_date <= weekEnd).sort(byUrgency);
+  const shown = new Set([...overdueList, ...todayList, ...weekList]);
+  const urgentList = open.filter(t => t.priority === "Urgent" && !shown.has(t)).sort(byUrgency);
+  const urgentTotal = open.filter(t => t.priority === "Urgent").length;
+
+  $("calSummary").innerHTML = `
+    <div class="cal-tile t-overdue"><strong>${overdueList.length}</strong><span>Overdue</span></div>
+    <div class="cal-tile t-today"><strong>${todayList.length}</strong><span>Due today</span></div>
+    <div class="cal-tile t-week"><strong>${weekList.length}</strong><span>Due in next 7 days</span></div>
+    <div class="cal-tile t-urgent"><strong>${urgentTotal}</strong><span>Urgent &amp; open</span></div>`;
+
+  // Month grid
+  $("calMonthLabel").textContent = calMonth.toLocaleDateString(undefined, {month:"long", year:"numeric"});
+  const weekdayRef = new Date(2024, 0, 7); // a Sunday
+  $("calWeekdays").innerHTML = Array.from({length:7}, (_, i) => {
+    const d = new Date(weekdayRef); d.setDate(d.getDate() + i);
+    return `<div>${d.toLocaleDateString(undefined, {weekday:"short"})}</div>`;
+  }).join("");
+
+  const year = calMonth.getFullYear(), month = calMonth.getMonth();
+  const offset = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const cellCount = Math.ceil((offset + daysInMonth) / 7) * 7;
+  const start = new Date(year, month, 1 - offset);
+
+  const cells = [];
+  for (let i = 0; i < cellCount; i++) {
+    const d = new Date(start); d.setDate(start.getDate() + i);
+    const key = dateKey(d);
+    const dayTasks = visible.filter(t => t.due_date === key).sort(byUrgency);
+    const dayProjects = projects.filter(p => p.due_date === key);
+    const classes = ["cal-day",
+      d.getMonth() !== month ? "outside" : "",
+      key === today ? "today" : "",
+      key === selectedDate ? "selected" : ""].join(" ");
+    const maxChips = 3 - Math.min(dayProjects.length, 1);
+    const hidden = Math.max(dayTasks.length - maxChips, 0) + Math.max(dayProjects.length - 1, 0);
+    cells.push(`<div class="${classes}" data-date="${key}">
+      <div class="cal-num">${d.getDate()}</div>
+      ${dayProjects.slice(0,1).map(p => `<div class="cal-project" title="Project due: ${escapeHtml(p.name)}">⚑ ${escapeHtml(p.name)}</div>`).join("")}
+      ${dayTasks.slice(0, maxChips).map(t => {
+        const done = t.status === "Done";
+        return `<div class="cal-chip pri-${t.priority.toLowerCase()} ${done ? "is-done" : ""} ${overdue(t) ? "is-overdue" : ""}">
+          <input type="checkbox" data-toggle-done="${t.id}" ${done ? "checked" : ""} aria-label="Mark ${escapeHtml(t.title)} done">
+          <span data-open-task="${t.id}" title="${escapeHtml(t.title)}">${escapeHtml(t.title)}</span>
+        </div>`;
+      }).join("")}
+      ${hidden ? `<div class="cal-more">+${hidden} more</div>` : ""}
+      ${dayTasks.length || dayProjects.length ? `<div class="cal-dots">
+        ${dayProjects.map(() => `<i class="cal-dot dot-project"></i>`).join("")}
+        ${dayTasks.slice(0,6).map(t => `<i class="cal-dot ${t.status === "Done" ? "dot-done" : "dot-" + t.priority.toLowerCase()}"></i>`).join("")}
+      </div>` : ""}
+    </div>`);
+  }
+  $("calGrid").innerHTML = cells.join("");
+
+  // Selected day panel
+  const selTasks = visible.filter(t => t.due_date === selectedDate).sort(byUrgency);
+  const selProjects = projects.filter(p => p.due_date === selectedDate);
+  $("calDayPanel").innerHTML = `
+    <div class="cal-panel-head">
+      <h3>${selectedDate === today ? "Today · " : ""}${longDate(selectedDate)}</h3>
+      <button class="link-btn" data-add-on-date="${selectedDate}" type="button">+ Add card</button>
+    </div>
+    ${selProjects.map(p => `<div class="agenda-project-due">⚑ Project due: ${escapeHtml(p.name)}</div>`).join("")}
+    ${selTasks.length ? selTasks.map(t => agendaItem(t, false)).join("")
+      : selProjects.length ? "" : `<div class="agenda-empty">Nothing due on this day.</div>`}`;
+
+  // Agenda
+  const group = (title, list, cls, showDate) => `<div class="agenda-group ${cls}">
+    <h4>${title} <span class="count">${list.length}</span></h4>
+    ${list.length ? list.map(t => agendaItem(t, showDate)).join("") : `<div class="agenda-empty">None 🎉</div>`}
+  </div>`;
+  $("calAgenda").innerHTML = `
+    <div class="cal-panel-head"><h3>Needs attention</h3></div>
+    ${group("Overdue", overdueList, "g-overdue", true)}
+    ${group("Due today", todayList, "g-today", false)}
+    ${group("Next 7 days", weekList, "g-week", true)}
+    ${urgentList.length ? group("Other urgent", urgentList, "g-urgent", true) : ""}`;
+}
+
+function agendaItem(t, showDate) {
+  const done = t.status === "Done";
+  const project = projectById(t.project_id);
+  const person = memberProfile(t.assignee_id);
+  return `<div class="agenda-item pri-${t.priority.toLowerCase()} ${done ? "is-done" : ""}">
+    <input type="checkbox" data-toggle-done="${t.id}" ${done ? "checked" : ""} aria-label="Mark ${escapeHtml(t.title)} done">
+    <div>
+      <div class="agenda-title" data-open-task="${t.id}">${escapeHtml(t.title)}</div>
+      <div class="agenda-meta">
+        <span class="card-label label-${t.priority.toLowerCase()}">${escapeHtml(t.priority)}</span>
+        ${showDate && t.due_date ? `<span class="meta-chip ${overdue(t) ? "overdue" : ""}">◷ ${formatDate(t.due_date)}</span>` : ""}
+        <span>${escapeHtml(project?.name || "No project")}</span>
+        <span>· ${escapeHtml(person?.display_name || "Unassigned")}</span>
+        ${done ? "" : `<span>· ${escapeHtml(t.status)}</span>`}
+      </div>
+    </div>
+  </div>`;
+}
+
+async function toggleTaskDone(id, done) {
+  const t = tasks.find(x => x.id === id);
+  if (!t) return;
+  const prev = t.status;
+  let next;
+  if (done) {
+    if (prev !== "Done") statusBeforeDone.set(id, prev);
+    next = "Done";
+  } else {
+    next = statusBeforeDone.get(id) || "To Do";
+    statusBeforeDone.delete(id);
+  }
+  if (next === prev) return;
+
+  t.status = next;
+  renderBoard(); renderProjects(); renderCalendar();
+
+  const { error } = await supabase.from("tasks").update({status:next}).eq("id", id);
+  if (error) {
+    t.status = prev;
+    renderBoard(); renderProjects(); renderCalendar();
+    return toast(error.message);
+  }
+  toast(done ? "Marked as done ✓" : `Moved back to ${next}`);
+}
+
+$("calendarView").addEventListener("change", e => {
+  const box = e.target.closest("[data-toggle-done]");
+  if (box) toggleTaskDone(box.dataset.toggleDone, box.checked);
+});
+
+$("calendarView").addEventListener("click", e => {
+  if (e.target.closest("[data-toggle-done]")) return;
+  const opener = e.target.closest("[data-open-task]");
+  if (opener) return openTask(opener.dataset.openTask);
+  const adder = e.target.closest("[data-add-on-date]");
+  if (adder) {
+    if (!projects.length) return openProject();
+    openTask();
+    $("taskDueInput").value = adder.dataset.addOnDate;
+    return;
+  }
+  const day = e.target.closest("[data-date]");
+  if (day) {
+    selectedDate = day.dataset.date;
+    const d = new Date(selectedDate + "T00:00:00");
+    if (d.getMonth() !== calMonth.getMonth() || d.getFullYear() !== calMonth.getFullYear()) {
+      calMonth = new Date(d.getFullYear(), d.getMonth(), 1);
+    }
+    renderCalendar();
+  }
+});
+
+$("calPrev").addEventListener("click", () => { calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() - 1, 1); renderCalendar(); });
+$("calNext").addEventListener("click", () => { calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() + 1, 1); renderCalendar(); });
+$("calToday").addEventListener("click", () => {
+  const now = new Date();
+  calMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  selectedDate = dateKey(now);
+  renderCalendar();
+});
+["calMineOnly","calShowDone"].forEach(id => $(id).addEventListener("change", renderCalendar));
+
 function switchView(view) {
   document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
-  document.querySelectorAll(".nav-btn").forEach(v => v.classList.remove("active"));
+  document.querySelectorAll("[data-view]").forEach(v => v.classList.toggle("active", v.dataset.view === view));
   $(`${view}View`).classList.add("active");
-  document.querySelector(`.nav-btn[data-view="${view}"]`)?.classList.add("active");
-  $("pageTitle").textContent = view === "board" ? "Project Board" : view === "projects" ? "Projects" : "Settings";
+  $("pageTitle").textContent = {board:"Project Board", calendar:"Calendar", projects:"Projects", settings:"Settings"}[view];
+  if (view === "calendar" && team) renderCalendar();
 }
 
 $("signInTab").addEventListener("click", () => {
@@ -1063,7 +1384,7 @@ $("newTaskBtn").addEventListener("click", () => projects.length ? openTask() : o
 });
 
 document.querySelectorAll("[data-close]").forEach(btn => btn.addEventListener("click", () => $(btn.dataset.close).close()));
-document.querySelectorAll(".nav-btn").forEach(btn => btn.addEventListener("click", () => switchView(btn.dataset.view)));
+document.querySelectorAll("[data-view]").forEach(btn => btn.addEventListener("click", () => switchView(btn.dataset.view)));
 
 init();
 
