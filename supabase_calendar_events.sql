@@ -52,5 +52,13 @@ create policy "calendar_events_delete_team"
 on public.calendar_events for delete to authenticated
 using (public.is_team_member(team_id));
 
+-- Let signed-in users use the table through the app (RLS above still limits
+-- them to their own workspace). Needed on projects that don't auto-expose
+-- new tables to the Data API.
+grant select, insert, update, delete on public.calendar_events to authenticated;
+
+-- Make the API notice the new table right away.
+notify pgrst, 'reload schema';
+
 -- Live updates for both users.
 alter publication supabase_realtime add table public.calendar_events;

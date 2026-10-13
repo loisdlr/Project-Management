@@ -896,6 +896,15 @@ let reportFrom = "", reportTo = "";
 let rsLogoDraft = "";
 let calendarEvents = [];
 let eventsTable = null; // true once the calendar_events table exists
+let eventsProbeError = "";
+
+async function probeEventsTable() {
+  const { error } = await supabase.from("calendar_events").select("id").limit(1);
+  eventsTable = !error;
+  eventsProbeError = error ? [error.code, error.message].filter(Boolean).join(": ") : "";
+  if (error) console.warn("calendar_events not available:", error);
+  return eventsTable;
+}
 let calMonth = (() => { const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), 1); })();
 let selectedDate = dateKey(new Date());
 const statusBeforeDone = new Map();
@@ -1043,10 +1052,7 @@ async function reloadData() {
     reportSettingsColumn = !profileProbe.error;
   }
 
-  if (eventsTable === null) {
-    const probe = await supabase.from("calendar_events").select("id").limit(1);
-    eventsTable = !probe.error;
-  }
+  if (eventsTable === null) await probeEventsTable();
 
   const [membersRes, projectsRes, tasksRes, checksRes, eventsRes] = await Promise.all([
     supabase.from("team_members")
@@ -1719,11 +1725,11 @@ function updateQuickMeta() {
   const r = quickRange();
   $("quickRangeLabel").textContent = !r.to ? "" : quickKind === "task" ? `Due ${longDate(r.to)}` : rangeLabel(r);
   const notice = quickKind === "event" && !eventsTable
-    ? "Schedules need a one-time database update: run supabase_calendar_events.sql in the Supabase SQL Editor."
+    ? `The app can't reach the schedules table yet${eventsProbeError ? ` (${eventsProbeError})` : ""}. Run supabase_calendar_events.sql in the Supabase SQL Editor, then try again.`
     : quickKind === "task" && !projects.length ? "Create a project first to add task cards." : "";
   $("quickNotice").textContent = notice;
   $("quickNotice").className = notice ? "message error" : "message hidden";
-  $("quickSave").disabled = !!notice;
+  $("quickSave").disabled = quickKind === "task" && !projects.length;
 }
 
 function openQuickAdd({from, to, eventId}) {
@@ -1745,6 +1751,12 @@ function openQuickAdd({from, to, eventId}) {
   if (projects.length) $("quickProject").value = $("projectFilter").value || projects[0].id;
   setQuickKind(ev ? "event" : quickKind);
   $("quickDialog").showModal();
+  if (!eventsTable) {
+    probeEventsTable().then(ok => {
+      updateQuickMeta();
+      if (ok) { setupRealtime(); scheduleReload(); }
+    });
+  }
   setTimeout(() => $("quickText").focus(), 30);
 }
 
@@ -1790,7 +1802,12 @@ $("quickForm").addEventListener("submit", async e => {
     });
   }
   $("quickSave").disabled = false;
-  if (result.error) return toast(result.error.message);
+  if (result.error) {
+    $("quickNotice").textContent = `Could not save: ${[result.error.code, result.error.message].filter(Boolean).join(": ")}`;
+    $("quickNotice").className = "message error";
+    return;
+  }
+  if (quickKind === "event" && !eventsTable) { eventsTable = true; eventsProbeError = ""; setupRealtime(); }
   $("quickDialog").close();
   scheduleReload();
   toast(quickEditId ? "Schedule updated" : `Added “${title}” · ${quickKind === "task" ? formatDate(to) : rangeLabel({from, to})}`);
