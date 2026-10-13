@@ -408,6 +408,26 @@ dialog::backdrop{background:rgba(24,24,27,.32);-webkit-backdrop-filter:blur(4px)
   .ar-table th{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .ar-table tr,.ar-sign{break-inside:avoid}
 }
+
+/* Calendar: full titles + quick add */
+.cal-day{min-height:120px}
+.cal-day-head{display:flex;justify-content:space-between;align-items:center;gap:4px}
+.cal-add{width:24px;height:24px;border-radius:7px;border:0;background:transparent;color:var(--muted);font-size:17px;line-height:1;display:grid;place-items:center;padding:0;opacity:0;transition:opacity .12s var(--ease),background .12s var(--ease),color .12s var(--ease)}
+.cal-day:hover .cal-add,.cal-day.selected .cal-add,.cal-add:focus-visible{opacity:1}
+.cal-add:hover{background:var(--ink);color:#fff}
+@media(hover:none){.cal-add{opacity:1}}
+.cal-chip{align-items:flex-start}
+.cal-chip input[type=checkbox]{margin-top:2px}
+.cal-chip span{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:break-word;word-break:normal;hyphens:auto;line-height:1.35;min-width:0}
+.cal-project{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:break-word;hyphens:auto;line-height:1.35}
+.cal-layout{grid-template-columns:1fr}
+.cal-side{grid-template-columns:1fr 1fr;align-items:start}
+@media(max-width:620px){.cal-side{grid-template-columns:1fr}}
+@media(max-width:620px){
+  .cal-day-head{flex-direction:column;gap:2px}
+  .cal-add{width:20px;height:20px;font-size:15px;opacity:0}
+  .cal-day.selected .cal-add{opacity:1;background:var(--ink);color:#fff}
+}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -1359,19 +1379,19 @@ function renderCalendar() {
       d.getMonth() !== month ? "outside" : "",
       key === today ? "today" : "",
       key === selectedDate ? "selected" : ""].join(" ");
-    const maxChips = 3 - Math.min(dayProjects.length, 1);
-    const hidden = Math.max(dayTasks.length - maxChips, 0) + Math.max(dayProjects.length - 1, 0);
     cells.push(`<div class="${classes}" data-date="${key}">
-      <div class="cal-num">${d.getDate()}</div>
-      ${dayProjects.slice(0,1).map(p => `<div class="cal-project" title="Project due: ${escapeHtml(p.name)}">⚑ ${escapeHtml(p.name)}</div>`).join("")}
-      ${dayTasks.slice(0, maxChips).map(t => {
+      <div class="cal-day-head">
+        <div class="cal-num">${d.getDate()}</div>
+        <button class="cal-add" data-add-on-date="${key}" type="button" title="Add a card due ${longDate(key)}" aria-label="Add a card due ${longDate(key)}">+</button>
+      </div>
+      ${dayProjects.map(p => `<div class="cal-project" title="Project due: ${escapeHtml(p.name)}">⚑ ${escapeHtml(p.name)}</div>`).join("")}
+      ${dayTasks.map(t => {
         const done = t.status === "Done";
         return `<div class="cal-chip pri-${t.priority.toLowerCase()} ${done ? "is-done" : ""} ${overdue(t) ? "is-overdue" : ""}">
           <input type="checkbox" data-toggle-done="${t.id}" ${done ? "checked" : ""} aria-label="Mark ${escapeHtml(t.title)} done">
           <span data-open-task="${t.id}" title="${escapeHtml(t.title)}">${escapeHtml(t.title)}</span>
         </div>`;
       }).join("")}
-      ${hidden ? `<div class="cal-more">+${hidden} more</div>` : ""}
       ${dayTasks.length || dayProjects.length ? `<div class="cal-dots">
         ${dayProjects.map(() => `<i class="cal-dot dot-project"></i>`).join("")}
         ${dayTasks.slice(0,6).map(t => `<i class="cal-dot ${t.status === "Done" ? "dot-done" : "dot-" + t.priority.toLowerCase()}"></i>`).join("")}
