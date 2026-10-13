@@ -99,6 +99,19 @@ Both users can:
 - search/filter the board
 - see updates from the other user
 
+## Monthly accomplishment report
+
+The **Reports** page builds a monthly report for each team member: every task they completed that month, grouped by project, with its description and accomplishment notes. It also shows work still in progress and signature lines. You can **Print / Save PDF**, **Download Word** (editable) or **Download CSV** (for Excel/Sheets), for example to attach to a salary request.
+
+If your database was created before this feature, run `supabase_monthly_report.sql` once in **Supabase Dashboard → SQL Editor**. It adds:
+
+- `completed_at`: set automatically when a card moves to Done, cleared if it's reopened
+- `accomplishment`: the "Accomplishment notes" field on each card
+
+Until you run it, the report estimates completion dates from each card's last edit and the notes field is hidden. New installs get both columns from `supabase_setup.sql`.
+
+Completed cards are hidden from the board. Turn on **Show completed** to see them.
+
 ## Security
 
 The browser uses only the Supabase Publishable Key. Database access is protected using Row Level Security policies tied to authenticated users and their workspace membership.

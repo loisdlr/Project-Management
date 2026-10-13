@@ -331,6 +331,95 @@ dialog::backdrop{background:rgba(24,24,27,.32);-webkit-backdrop-filter:blur(4px)
   .cal-chip,.cal-project,.cal-more{display:none}
   .cal-dots{display:flex}
 }
+
+/* =========================================================
+   MINIMAL CARDS
+   ========================================================= */
+.board-toolbar-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.kanban-board.cols-3{grid-template-columns:repeat(3,minmax(260px,1fr))}
+.trello-card{padding:12px 13px}
+.card-top{display:flex;align-items:flex-start;gap:10px}
+.card-check{flex:none;width:18px;height:18px;margin-top:1px;border-radius:50%;border:1.5px solid #c9c9c3;background:var(--panel);display:grid;place-items:center;padding:0;color:transparent;transition:all .15s var(--ease)}
+.card-check svg{width:10px;height:10px}
+.card-check:hover{border-color:var(--low);color:var(--low);background:var(--low-soft)}
+.card-check.checked{background:var(--low);border-color:var(--low);color:#fff}
+.trello-card .card-title{margin:0;font-size:13.5px;font-weight:550;line-height:1.4;flex:1;min-width:0;overflow-wrap:anywhere}
+.trello-card.is-done .card-title{color:var(--faint);text-decoration:line-through}
+.trello-card .card-footer{margin-top:9px;padding-left:28px}
+.card-meta{align-items:center;gap:6px;font-size:11.5px;color:var(--muted);min-width:0}
+.card-meta>span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.card-meta .sep{color:#d4d4ce}
+.card-meta .is-late{color:var(--urgent-text);font-weight:600}
+.pri-dot{width:7px;height:7px;border-radius:50%;flex:none}
+.trello-card .card-assignee{width:22px;height:22px;font-size:9px;box-shadow:none}
+.trello-card.completing{opacity:0;transform:scale(.97);transition:opacity .22s var(--ease),transform .22s var(--ease)}
+.toast{display:flex;align-items:center;gap:14px}
+.toast button{border:0;background:transparent;color:#a5b4fc;font-weight:600;font-size:13px;padding:0}
+.toast button:hover{color:#fff}
+
+/* =========================================================
+   MONTHLY REPORT
+   ========================================================= */
+.report-controls{display:grid;grid-template-columns:200px 220px 1fr;gap:12px;align-items:end;background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px 18px;box-shadow:var(--sh-1);margin-bottom:16px}
+.report-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.report-notice{background:var(--medium-soft);color:var(--medium-text);border-radius:var(--r);padding:11px 14px;font-size:13px;margin-bottom:16px;line-height:1.5}
+.report-notice code{background:rgba(0,0,0,.06)}
+.report-doc{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-2);padding:44px 48px;max-width:920px;margin:0 auto;color:var(--text)}
+.rpt-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.rpt-brand{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+.rpt-brand strong{color:var(--text);display:block;font-size:14px}
+.rpt-head h1{margin:22px 0 4px;font-size:26px;font-weight:650;letter-spacing:-.03em}
+.rpt-head .rpt-period{font-size:15px;color:var(--text-2)}
+.rpt-meta{display:grid;gap:6px;font-size:12.5px;text-align:right;color:var(--muted);white-space:nowrap}
+.rpt-meta b{color:var(--text);font-weight:600}
+.rpt-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin:24px 0 30px}
+.rpt-stats div{background:var(--panel-2);padding:14px 16px}
+.rpt-stats strong{display:block;font-size:24px;font-weight:650;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.rpt-stats span{font-size:12px;color:var(--muted);font-weight:500}
+.rpt-section{margin-top:26px}
+.rpt-section h2{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 10px}
+.rpt-project{font-size:15px;font-weight:650;margin:20px 0 8px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.rpt-project span{font-size:12px;color:var(--muted);font-weight:500}
+.rpt-table{width:100%;border-collapse:collapse;font-size:13px}
+.rpt-table th{text-align:left;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:8px 10px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+.rpt-table td{padding:11px 10px;border-bottom:1px solid var(--line-2);vertical-align:top;line-height:1.5}
+.rpt-table td:first-child{white-space:nowrap;color:var(--text-2);width:90px}
+.rpt-table .t-title{font-weight:600}
+.rpt-table .t-desc{color:var(--muted);font-size:12.5px;margin-top:2px;white-space:pre-line}
+.rpt-table .t-acc{white-space:pre-line}
+.rpt-table .t-none{color:var(--faint)}
+.rpt-table .t-pri{white-space:nowrap;width:90px}
+.rpt-empty{padding:26px;text-align:center;color:var(--muted);border:1px dashed #d8d8d2;border-radius:var(--r);font-size:13px}
+.rpt-sign{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px}
+.rpt-sign div{border-top:1px solid var(--text-2);padding-top:8px;font-size:12px;color:var(--muted)}
+.rpt-sign b{display:block;color:var(--text);font-size:13px;font-weight:600}
+.task-acc-hint{font-weight:400;color:var(--muted);font-size:11.5px}
+@media(max-width:850px){.report-controls{grid-template-columns:1fr 1fr}.report-actions{grid-column:1/-1;justify-content:stretch}.report-actions>*{flex:1}}
+@media(max-width:1100px){.kanban-board.cols-3{grid-template-columns:repeat(3,280px)}}
+@media(max-width:620px){
+  .kanban-board.cols-3{grid-template-columns:repeat(3,85vw)}
+  .report-controls{grid-template-columns:1fr}
+  .report-doc{padding:24px 18px}
+  .rpt-head{flex-direction:column}.rpt-meta{text-align:left}
+  .rpt-stats{grid-template-columns:1fr 1fr}
+  .rpt-table thead{display:none}
+  .rpt-table tr{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:10px 0;border-bottom:1px solid var(--line-2)}
+  .rpt-table td{border:0;padding:0}
+  .rpt-table td.t-acc-cell,.rpt-table td.t-pri{grid-column:2}
+  .rpt-sign{grid-template-columns:1fr;gap:28px}
+}
+@media print{
+  @page{margin:14mm}
+  body{background:#fff}
+  .sidebar,.topbar,.mobile-nav,.report-controls,.report-notice,.toast,dialog{display:none!important}
+  .app-shell{display:block}
+  .main{padding:0;max-width:none}
+  .view{animation:none!important}
+  .report-doc{border:0;box-shadow:none;padding:0;max-width:none}
+  .rpt-stats div,.rpt-table th{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .rpt-table tr{break-inside:avoid}
+  .rpt-sign{break-inside:avoid}
+}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -424,6 +513,7 @@ dialog::backdrop{background:rgba(24,24,27,.32);-webkit-backdrop-filter:blur(4px)
         <button class="nav-btn active" data-view="board" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="18" rx="2"/><rect x="14" y="3" width="7" height="11" rx="2"/></svg>Board</button>
         <button class="nav-btn" data-view="calendar" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>Calendar</button>
         <button class="nav-btn" data-view="projects" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H9l2 2.5h7.5A2.5 2.5 0 0 1 21 10v7.5a2.5 2.5 0 0 1-2.5 2.5h-13A2.5 2.5 0 0 1 3 17.5z"/></svg>Projects</button>
+        <button class="nav-btn" data-view="reports" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>Reports</button>
         <button class="nav-btn" data-view="settings" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>Settings</button>
       </nav>
 
@@ -452,14 +542,18 @@ dialog::backdrop{background:rgba(24,24,27,.32);-webkit-backdrop-filter:blur(4px)
         <button class="active" data-view="board" type="button">Board</button>
         <button data-view="calendar" type="button">Calendar</button>
         <button data-view="projects" type="button">Projects</button>
+        <button data-view="reports" type="button">Reports</button>
         <button data-view="settings" type="button">Settings</button>
       </nav>
 
       <section id="boardView" class="view active">
         <div class="board-toolbar">
-          <div>
-            <h2>Team Board</h2>
-            <p>Drag cards between columns. Changes sync for both users.</p>
+          <div class="board-toolbar-head">
+            <div>
+              <h2>Team Board</h2>
+              <p>Drag cards between columns. Tick a card to complete it — it moves to your monthly report.</p>
+            </div>
+            <label class="toggle"><input id="boardShowDone" type="checkbox"> Show completed</label>
           </div>
           <div class="filters">
             <input id="searchInput" type="search" placeholder="Search cards...">
@@ -488,7 +582,7 @@ dialog::backdrop{background:rgba(24,24,27,.32);-webkit-backdrop-filter:blur(4px)
               </div>
               <div class="cal-options">
                 <label class="toggle"><input id="calMineOnly" type="checkbox"> My cards only</label>
-                <label class="toggle"><input id="calShowDone" type="checkbox" checked> Show done</label>
+                <label class="toggle"><input id="calShowDone" type="checkbox"> Show done</label>
               </div>
             </div>
             <div id="calWeekdays" class="cal-weekdays"></div>
@@ -512,6 +606,20 @@ dialog::backdrop{background:rgba(24,24,27,.32);-webkit-backdrop-filter:blur(4px)
       <section id="projectsView" class="view">
         <div class="section-head"><div><h2>Projects</h2><p>Manage all shared projects.</p></div></div>
         <div id="projectsGrid" class="projects-grid"></div>
+      </section>
+
+      <section id="reportsView" class="view">
+        <div class="report-controls">
+          <label>Month<input id="reportMonth" type="month"></label>
+          <label>Team member<select id="reportMember"></select></label>
+          <div class="report-actions">
+            <button id="reportCsv" class="secondary-btn" type="button">Download CSV</button>
+            <button id="reportWord" class="secondary-btn" type="button">Download Word</button>
+            <button id="reportPrint" class="primary-btn" type="button">Print / Save PDF</button>
+          </div>
+        </div>
+        <div id="reportNotice" class="report-notice hidden"></div>
+        <article id="reportDoc" class="report-doc"></article>
       </section>
 
       <section id="settingsView" class="view">
@@ -575,7 +683,8 @@ dialog::backdrop{background:rgba(24,24,27,.32);-webkit-backdrop-filter:blur(4px)
         </select></label>
       </div>
       <label>Due date<span class="date-wrap"><input id="taskDueInput" type="date"></span></label>
-      <label>Description<textarea id="taskDescriptionInput" rows="4"></textarea></label>
+      <label>Description<textarea id="taskDescriptionInput" rows="3" placeholder="What is this task about?"></textarea></label>
+      <label id="taskAccomplishmentField">Accomplishment notes <span class="task-acc-hint">What was delivered or achieved — appears in the monthly report.</span><textarea id="taskAccomplishmentInput" rows="3" placeholder="e.g. Launched the new homepage; reduced load time by 40%"></textarea></label>
       <div>
         <div class="check-head"><strong>Checklist</strong><button id="addChecklistBtn" class="link-btn" type="button">+ Add item</button></div>
         <div id="checklistEditor" class="checklist-editor"></div>
@@ -633,6 +742,9 @@ let realtimeChannel = null;
 let draggedTaskId = null;
 let checklistDraft = [];
 let reloadTimer = null;
+let reportColumns = null; // true once the completed_at / accomplishment columns exist
+let reportMonth = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`; })();
+let reportMemberId = "";
 let calMonth = (() => { const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), 1); })();
 let selectedDate = dateKey(new Date());
 const statusBeforeDone = new Map();
@@ -662,10 +774,20 @@ function clearMessage(el) {
   el.className = "message hidden";
 }
 
-function toast(text) {
-  $("toast").textContent = text;
-  $("toast").classList.remove("hidden");
-  setTimeout(() => $("toast").classList.add("hidden"), 1800);
+let toastTimer = null;
+function toast(text, action) {
+  const el = $("toast");
+  el.innerHTML = `<span>${escapeHtml(text)}</span>`;
+  if (action) {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = action.label;
+    btn.addEventListener("click", () => { el.classList.add("hidden"); action.onClick(); });
+    el.appendChild(btn);
+  }
+  el.classList.remove("hidden");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.add("hidden"), action ? 5000 : 1800);
 }
 
 function formatDate(dateStr) {
@@ -780,6 +902,11 @@ async function reloadData() {
       .order("position")
   ]);
 
+  if (reportColumns === null) {
+    const probe = await supabase.from("tasks").select("completed_at,accomplishment").limit(1);
+    reportColumns = !probe.error;
+  }
+
   const firstError = [membersRes, projectsRes, tasksRes, checksRes].find(r => r.error)?.error;
   if (firstError) {
     console.error(firstError);
@@ -831,6 +958,7 @@ function renderAll() {
   renderBoard();
   renderProjects();
   renderCalendar();
+  renderReport();
 }
 
 function renderTeam() {
@@ -871,7 +999,10 @@ function filteredTasks() {
   const assigneeId = $("assigneeFilter").value;
   const priority = $("priorityFilter").value;
 
+  const showDone = $("boardShowDone").checked;
+
   return tasks.filter(t => {
+    if (!showDone && t.status === "Done") return false;
     const text = [
       t.title, t.description, t.status, t.priority,
       projectById(t.project_id)?.name,
@@ -887,14 +1018,19 @@ function filteredTasks() {
 
 function renderBoard() {
   const visible = filteredTasks();
+  const showDone = $("boardShowDone").checked;
+  const monthKey = dateKey(new Date()).slice(0, 7);
+  const doneThisMonth = tasks.filter(t => t.status === "Done" && completedKey(t)?.startsWith(monthKey)).length;
   $("boardStats").innerHTML = `
-    <span class="stat-chip">${visible.length} cards</span>
-    <span class="stat-chip">${visible.filter(t => t.status === "Done").length} completed</span>
+    <span class="stat-chip">${visible.filter(t => t.status !== "Done").length} open</span>
+    <span class="stat-chip">${doneThisMonth} completed this month</span>
     <span class="stat-chip">${visible.filter(overdue).length} overdue</span>
     <span class="stat-chip">${members.length}/2 users</span>
   `;
 
-  $("kanbanBoard").innerHTML = STATUSES.map(status => {
+  const columns = showDone ? STATUSES : STATUSES.filter(s => s !== "Done");
+  $("kanbanBoard").classList.toggle("cols-3", !showDone);
+  $("kanbanBoard").innerHTML = columns.map(status => {
     const list = visible.filter(t => t.status === status);
     return `<section class="kanban-column" data-status="${status}">
       <div class="column-head">
@@ -911,35 +1047,49 @@ function renderBoard() {
   wireBoard();
 }
 
+const CHECK_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 10 17l9-10"/></svg>`;
+
 function renderCard(task) {
   const project = projectById(task.project_id);
   const person = memberProfile(task.assignee_id);
   const checks = checklistForTask(task.id);
-  const done = checks.filter(c => c.is_done).length;
-  const pct = checks.length ? Math.round(done / checks.length * 100) : 0;
+  const done = task.status === "Done";
+  const checksDone = checks.filter(c => c.is_done).length;
+  const meta = [
+    `<span><i class="pri-dot dot-${task.priority.toLowerCase()}" title="${escapeHtml(task.priority)} priority"></i>${escapeHtml(project?.name || "No project")}</span>`,
+    task.due_date ? `<span class="${overdue(task) ? "is-late" : ""}">${formatDate(task.due_date)}</span>` : "",
+    checks.length ? `<span>${checksDone}/${checks.length}</span>` : ""
+  ].filter(Boolean).join(`<span class="sep">·</span>`);
 
-  return `<article class="trello-card" draggable="true" data-task-id="${task.id}">
-    <div class="card-labels">
-      <span class="card-label label-project">${escapeHtml(project?.name || "No project")}</span>
-      <span class="card-label label-${task.priority.toLowerCase()}">${escapeHtml(task.priority)}</span>
+  return `<article class="trello-card ${done ? "is-done" : ""}" draggable="true" data-task-id="${task.id}">
+    <div class="card-top">
+      <button class="card-check ${done ? "checked" : ""}" data-complete="${task.id}" type="button" aria-label="${done ? "Mark as not done" : "Mark as done"}">${CHECK_SVG}</button>
+      <div class="card-title">${escapeHtml(task.title)}</div>
     </div>
-    <div class="card-title">${escapeHtml(task.title)}</div>
-    ${task.description ? `<div class="card-desc">${escapeHtml(task.description)}</div>` : ""}
     <div class="card-footer">
-      <div class="card-meta">
-        ${task.due_date ? `<span class="meta-chip ${overdue(task) ? "overdue" : ""}">◷ ${formatDate(task.due_date)}</span>` : ""}
-        ${checks.length ? `<span class="meta-chip">✓ ${done}/${checks.length}</span>` : ""}
-      </div>
+      <div class="card-meta">${meta}</div>
       <div class="card-assignee ${avatarClass(task.assignee_id)}" title="${escapeHtml(person?.display_name || "")}">${initials(person?.display_name)}</div>
     </div>
-    ${checks.length ? `<div class="card-progress">
-      <span class="progress-text">${pct}%</span>
-      <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
-    </div>` : ""}
   </article>`;
 }
 
 function wireBoard() {
+  document.querySelectorAll("[data-complete]").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.stopPropagation();
+      const t = tasks.find(x => x.id === btn.dataset.complete);
+      if (!t) return;
+      const markDone = t.status !== "Done";
+      const card = btn.closest(".trello-card");
+      if (markDone && !$("boardShowDone").checked) {
+        card.classList.add("completing");
+        setTimeout(() => toggleTaskDone(t.id, true), 200);
+      } else {
+        toggleTaskDone(t.id, markDone);
+      }
+    });
+  });
+
   document.querySelectorAll(".trello-card").forEach(card => {
     card.addEventListener("click", () => openTask(card.dataset.taskId));
     card.addEventListener("dragstart", e => {
@@ -1053,12 +1203,14 @@ function openTask(id = "", presetStatus = "To Do") {
     $("taskPriorityInput").value = t.priority;
     $("taskDueInput").value = t.due_date || "";
     $("taskDescriptionInput").value = t.description || "";
+    $("taskAccomplishmentInput").value = t.accomplishment || "";
     $("taskDialogTitle").textContent = "Edit Card";
     $("taskStatusLabel").textContent = t.status.toUpperCase();
     $("deleteTaskBtn").classList.remove("hidden");
     checklistDraft = checklistForTask(t.id).map(x => ({id:x.id, text:x.text, is_done:x.is_done}));
   }
 
+  $("taskAccomplishmentField").classList.toggle("hidden", !reportColumns);
   renderChecklistEditor();
   $("taskDialog").showModal();
 }
@@ -1248,16 +1400,21 @@ async function toggleTaskDone(id, done) {
   }
   if (next === prev) return;
 
+  const prevCompletedAt = t.completed_at;
   t.status = next;
-  renderBoard(); renderProjects(); renderCalendar();
+  t.completed_at = done ? new Date().toISOString() : null;
+  const rerender = () => { renderBoard(); renderProjects(); renderCalendar(); renderReport(); };
+  rerender();
 
   const { error } = await supabase.from("tasks").update({status:next}).eq("id", id);
   if (error) {
     t.status = prev;
-    renderBoard(); renderProjects(); renderCalendar();
+    t.completed_at = prevCompletedAt;
+    rerender();
     return toast(error.message);
   }
-  toast(done ? "Marked as done ✓" : `Moved back to ${next}`);
+  if (done) toast(`Completed “${t.title}”`, {label:"Undo", onClick:() => toggleTaskDone(id, false)});
+  else toast(`Moved back to ${next}`);
 }
 
 $("calendarView").addEventListener("change", e => {
@@ -1297,12 +1454,167 @@ $("calToday").addEventListener("click", () => {
 });
 ["calMineOnly","calShowDone"].forEach(id => $(id).addEventListener("change", renderCalendar));
 
+
+// ---------- Monthly accomplishment report ----------
+function completedKey(t) {
+  if (t.status !== "Done") return null;
+  const stamp = t.completed_at || t.updated_at;
+  return stamp ? dateKey(new Date(stamp)) : null;
+}
+
+function monthLabel(ym) {
+  const [y, m] = ym.split("-").map(Number);
+  return new Date(y, m - 1, 1).toLocaleDateString(undefined, {month:"long", year:"numeric"});
+}
+
+function reportData() {
+  const memberId = reportMemberId || session.user.id;
+  const person = memberProfile(memberId);
+  const completed = tasks
+    .filter(t => t.assignee_id === memberId && completedKey(t)?.startsWith(reportMonth))
+    .sort((a, b) => completedKey(a).localeCompare(completedKey(b)));
+  const inProgress = tasks
+    .filter(t => t.assignee_id === memberId && (t.status === "In Progress" || t.status === "Review"))
+    .sort(byUrgency);
+  const withDue = completed.filter(t => t.due_date);
+  const onTime = withDue.filter(t => completedKey(t) <= t.due_date).length;
+  return {memberId, name:person?.display_name || "Team member", completed, inProgress, withDue, onTime};
+}
+
+function renderReport() {
+  if (!team) return;
+  const sel = $("reportMember");
+  if (!reportMemberId || !members.some(m => m.user_id === reportMemberId)) reportMemberId = session.user.id;
+  sel.innerHTML = members.map(m => `<option value="${m.user_id}">${escapeHtml(m.profiles?.display_name || "User")}${m.user_id === session.user.id ? " (you)" : ""}</option>`).join("");
+  sel.value = reportMemberId;
+  $("reportMonth").value = reportMonth;
+
+  $("reportNotice").classList.toggle("hidden", reportColumns !== false);
+  $("reportNotice").innerHTML = `Completion dates are estimated from each card's last edit, and accomplishment notes are off. Run <code>supabase_monthly_report.sql</code> in the Supabase SQL Editor once to record exact completion dates and notes.`;
+
+  $("reportDoc").innerHTML = reportHtml(reportData());
+}
+
+function reportHtml(r) {
+  const projectsWorked = [...new Set(r.completed.map(t => t.project_id))];
+  const highImpact = r.completed.filter(t => t.priority === "Urgent" || t.priority === "High").length;
+  const today = new Date().toLocaleDateString(undefined, {year:"numeric", month:"long", day:"numeric"});
+  const priority = t => `<span class="card-label label-${t.priority.toLowerCase()}">${escapeHtml(t.priority)}</span>`;
+
+  const grouped = projectsWorked.map(pid => {
+    const list = r.completed.filter(t => t.project_id === pid);
+    return `<div class="rpt-project">${escapeHtml(projectById(pid)?.name || "No project")}<span>${list.length} task${list.length === 1 ? "" : "s"}</span></div>
+    <table class="rpt-table">
+      <thead><tr><th>Completed</th><th>Task &amp; description</th><th>Accomplishment</th><th>Priority</th></tr></thead>
+      <tbody>${list.map(t => `<tr>
+        <td>${formatDate(completedKey(t))}</td>
+        <td><div class="t-title">${escapeHtml(t.title)}</div>${t.description ? `<div class="t-desc">${escapeHtml(t.description)}</div>` : ""}</td>
+        <td class="t-acc-cell">${t.accomplishment ? `<div class="t-acc">${escapeHtml(t.accomplishment)}</div>` : `<span class="t-none">—</span>`}</td>
+        <td class="t-pri">${priority(t)}</td>
+      </tr>`).join("")}</tbody>
+    </table>`;
+  }).join("");
+
+  return `
+    <header class="rpt-head">
+      <div>
+        <div class="rpt-brand"><div class="logo">DF</div><div><strong>${escapeHtml(team.name)}</strong>DualFlow workspace</div></div>
+        <h1>Monthly Accomplishment Report</h1>
+        <div class="rpt-period">${monthLabel(reportMonth)}</div>
+      </div>
+      <div class="rpt-meta">
+        <span>Prepared for <b>${escapeHtml(r.name)}</b></span>
+        <span>Period <b>${monthLabel(reportMonth)}</b></span>
+        <span>Generated <b>${today}</b></span>
+      </div>
+    </header>
+
+    <div class="rpt-stats">
+      <div><strong>${r.completed.length}</strong><span>Tasks completed</span></div>
+      <div><strong>${highImpact}</strong><span>High / urgent priority</span></div>
+      <div><strong>${projectsWorked.length}</strong><span>Projects contributed to</span></div>
+      <div><strong>${r.withDue.length ? Math.round(r.onTime / r.withDue.length * 100) + "%" : "—"}</strong><span>Delivered on time${r.withDue.length ? ` (${r.onTime}/${r.withDue.length})` : ""}</span></div>
+    </div>
+
+    <section class="rpt-section">
+      <h2>Completed work</h2>
+      ${r.completed.length ? grouped : `<div class="rpt-empty">No completed tasks recorded for ${escapeHtml(r.name)} in ${monthLabel(reportMonth)}.</div>`}
+    </section>
+
+    ${r.inProgress.length ? `<section class="rpt-section">
+      <h2>Work in progress</h2>
+      <table class="rpt-table">
+        <thead><tr><th>Due</th><th>Task &amp; description</th><th>Status</th><th>Priority</th></tr></thead>
+        <tbody>${r.inProgress.map(t => `<tr>
+          <td>${t.due_date ? formatDate(t.due_date) : "—"}</td>
+          <td><div class="t-title">${escapeHtml(t.title)}</div><div class="t-desc">${escapeHtml(projectById(t.project_id)?.name || "")}${t.description ? " — " + escapeHtml(t.description) : ""}</div></td>
+          <td class="t-acc-cell">${escapeHtml(t.status)}</td>
+          <td class="t-pri">${priority(t)}</td>
+        </tr>`).join("")}</tbody>
+      </table>
+    </section>` : ""}
+
+    <div class="rpt-sign">
+      <div><b>${escapeHtml(r.name)}</b>Prepared by · Date</div>
+      <div><b>&nbsp;</b>Reviewed &amp; approved by · Date</div>
+    </div>`;
+}
+
+function reportFileName(ext) {
+  const r = reportData();
+  const slug = r.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "member";
+  return `accomplishment-report-${slug}-${reportMonth}.${ext}`;
+}
+
+function downloadBlob(content, type, filename) {
+  const url = URL.createObjectURL(new Blob([content], {type}));
+  const a = document.createElement("a");
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+$("reportMonth").addEventListener("change", () => { if ($("reportMonth").value) { reportMonth = $("reportMonth").value; renderReport(); } });
+$("reportMember").addEventListener("change", () => { reportMemberId = $("reportMember").value; renderReport(); });
+
+$("reportPrint").addEventListener("click", () => {
+  const original = document.title;
+  document.title = reportFileName("pdf").replace(/\.pdf$/, "");
+  window.addEventListener("afterprint", () => { document.title = original; }, {once:true});
+  window.print();
+});
+
+$("reportCsv").addEventListener("click", () => {
+  const r = reportData();
+  const cell = v => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const rows = [["Team member","Month","Completed on","Project","Task","Description","Accomplishment","Priority","Due date","On time"]];
+  r.completed.forEach(t => rows.push([
+    r.name, monthLabel(reportMonth), completedKey(t), projectById(t.project_id)?.name || "",
+    t.title, t.description, t.accomplishment || "", t.priority, t.due_date || "",
+    t.due_date ? (completedKey(t) <= t.due_date ? "Yes" : "No") : ""
+  ]));
+  downloadBlob("﻿" + rows.map(row => row.map(cell).join(",")).join("\r\n"), "text/csv;charset=utf-8", reportFileName("csv"));
+});
+
+$("reportWord").addEventListener("click", () => {
+  const css = `body{font-family:Calibri,Arial,sans-serif;color:#18181b;font-size:11pt}
+    h1{font-size:20pt;margin:12pt 0 2pt}h2{font-size:10pt;text-transform:uppercase;letter-spacing:1pt;color:#71717a;margin-top:18pt}
+    table{width:100%;border-collapse:collapse;margin-top:6pt}th,td{border:1px solid #e4e4e0;padding:6pt;text-align:left;vertical-align:top;font-size:10pt}
+    th{background:#f6f6f3;font-size:8.5pt;text-transform:uppercase;color:#71717a}.logo{display:none}
+    .rpt-meta span,.rpt-stats div{display:block}.rpt-stats strong{font-size:16pt;margin-right:6pt}.rpt-project{font-weight:bold;font-size:12pt;margin-top:12pt}
+    .rpt-project span{font-weight:normal;color:#71717a;font-size:9pt;margin-left:6pt}.t-desc{color:#71717a;font-size:9.5pt}.t-title{font-weight:bold}
+    .rpt-sign div{margin-top:36pt;border-top:1px solid #3f3f46;padding-top:4pt;width:45%;display:inline-block;margin-right:8%}.rpt-sign b{display:block}`;
+  const html = `<html><head><meta charset="utf-8"><title>Monthly Accomplishment Report</title><style>${css}</style></head><body>${reportHtml(reportData())}</body></html>`;
+  downloadBlob("﻿" + html, "application/msword", reportFileName("doc"));
+});
+
 function switchView(view) {
   document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
   document.querySelectorAll("[data-view]").forEach(v => v.classList.toggle("active", v.dataset.view === view));
   $(`${view}View`).classList.add("active");
-  $("pageTitle").textContent = {board:"Project Board", calendar:"Calendar", projects:"Projects", settings:"Settings"}[view];
+  $("pageTitle").textContent = {board:"Project Board", calendar:"Calendar", projects:"Projects", reports:"Monthly Report", settings:"Settings"}[view];
   if (view === "calendar" && team) renderCalendar();
+  if (view === "reports" && team) renderReport();
 }
 
 $("signInTab").addEventListener("click", () => {
@@ -1392,6 +1704,7 @@ $("taskForm").addEventListener("submit", async e => {
     assignee_id:$("taskAssigneeInput").value,
     due_date:$("taskDueInput").value || null
   };
+  if (reportColumns) row.accomplishment = $("taskAccomplishmentInput").value.trim();
 
   let taskId = id;
   let result;
@@ -1446,6 +1759,8 @@ $("taskStatusInput").addEventListener("change", () => $("taskStatusLabel").textC
 
 $("newProjectBtn").addEventListener("click", () => openProject());
 $("newTaskBtn").addEventListener("click", () => projects.length ? openTask() : openProject());
+
+$("boardShowDone").addEventListener("change", renderBoard);
 
 ["searchInput","projectFilter","assigneeFilter","priorityFilter"].forEach(id => {
   $(id).addEventListener("input", renderBoard);

@@ -326,6 +326,47 @@ grant select, update on public.profiles to authenticated;
 grant select on public.teams, public.team_members to authenticated;
 grant select, insert, update, delete on public.projects, public.tasks, public.checklist_items to authenticated;
 
+-- ============================================================
+-- Monthly accomplishment report: completion time + notes
+-- (same as supabase_monthly_report.sql)
+-- ============================================================
+-- When a card was completed, and what was accomplished.
+alter table public.tasks add column if not exists completed_at timestamptz;
+alter table public.tasks add column if not exists accomplishment text not null default '';
+
+-- Backfill cards that are already Done with their last edit time.
+update public.tasks
+set completed_at = updated_at
+where status = 'Done' and completed_at is null;
+
+-- Record the completion time automatically whenever a card moves to Done,
+-- and clear it if the card is reopened.
+create or replace function public.set_task_completed_at()
+returns trigger
+language plpgsql
+as $$
+begin
+  if new.status = 'Done' then
+    if tg_op = 'INSERT' then
+      new.completed_at = coalesce(new.completed_at, now());
+    elsif old.status is distinct from 'Done' then
+      new.completed_at = now();
+    end if;
+  else
+    new.completed_at = null;
+  end if;
+  return new;
+end;
+$$;
+
+drop trigger if exists tasks_set_completed_at on public.tasks;
+create trigger tasks_set_completed_at
+before insert or update on public.tasks
+for each row execute procedure public.set_task_completed_at();
+
+create index if not exists tasks_assignee_completed_idx
+  on public.tasks (team_id, assignee_id, completed_at);
+
 -- Realtime for the shared board.
 -- If Supabase says a table is already in the publication, that line can be skipped.
 alter publication supabase_realtime add table public.projects;
