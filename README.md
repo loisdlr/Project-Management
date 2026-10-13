@@ -99,6 +99,16 @@ Both users can:
 - search/filter the board
 - see updates from the other user
 
+## Calendar schedules
+
+On the **Calendar** page you can add schedules and events (exhibits, meetings, trips) alongside task due dates:
+
+- **Drag across days** (e.g. Oct 25 → 26), **click + on a day**, or click a day and then **Shift-click** another, to open quick add.
+- Choose **Schedule / event** (one bar spanning the dates, with optional time, colour and notes) or **Task card** (a card due on the chosen date).
+- Click a schedule bar to edit or delete it. Schedules are shared with both users and update live.
+
+If your database was created before this feature, run `supabase_calendar_events.sql` once in **Supabase Dashboard → SQL Editor**.
+
 ## Accomplishment report
 
 The **Reports** page builds each person's accomplishment report in this layout:
