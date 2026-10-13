@@ -428,6 +428,63 @@ dialog::backdrop{background:rgba(24,24,27,.32);-webkit-backdrop-filter:blur(4px)
   .cal-add{width:20px;height:20px;font-size:15px;opacity:0}
   .cal-day.selected .cal-add{opacity:1;background:var(--ink);color:#fff}
 }
+
+/* =========================================================
+   CALENDAR WEEKS, SCHEDULES & QUICK ADD
+   ========================================================= */
+.cal-grid{display:flex;flex-direction:column;gap:1px;background:var(--line);-webkit-user-select:none;user-select:none}
+.cal-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));column-gap:1px;min-height:120px;background:var(--line)}
+.cal-week>.cal-day{grid-row:1/-1;min-height:0;padding:0;display:block}
+.cal-week>.cal-day.in-range{background:var(--accent-soft);box-shadow:inset 0 0 0 1px #c7c9ff}
+.cal-day-head,.cal-items{position:relative;z-index:1;min-width:0;cursor:pointer}
+.cal-day-head{padding:7px 7px 3px}
+.cal-items{display:flex;flex-direction:column;gap:4px;padding:3px 7px 8px}
+.cal-week:hover .cal-add{opacity:.35}
+.cal-day-head:hover .cal-add,.cal-day-head.selected .cal-add{opacity:1}
+.cal-day-head.today .cal-num{background:var(--ink);color:#fff}
+.cal-day-head.outside .cal-num{color:#c4c4be}
+.cal-event{position:relative;z-index:2;margin:2px 4px;padding:3px 8px;border-radius:6px;font-size:11.5px;font-weight:600;line-height:1.35;cursor:pointer;
+  background:var(--ev-bg);color:var(--ev-fg);border-left:3px solid var(--ev-bar);overflow-wrap:break-word;hyphens:auto}
+.cal-event:hover{filter:brightness(.97)}
+.cal-event.cont-l{border-top-left-radius:0;border-bottom-left-radius:0;margin-left:0;border-left-color:transparent}
+.cal-event.cont-r{border-top-right-radius:0;border-bottom-right-radius:0;margin-right:0}
+.cal-event small{font-weight:500;opacity:.8;margin-right:4px}
+.ev-indigo{--ev-bg:#eef0ff;--ev-fg:#3730a3;--ev-bar:#4f46e5}
+.ev-green{--ev-bg:#e9f7ef;--ev-fg:#14532d;--ev-bar:#22a06b}
+.ev-orange{--ev-bg:#fff1e6;--ev-fg:#9a3412;--ev-bar:#f97316}
+.ev-pink{--ev-bg:#fdf2f8;--ev-fg:#9d174d;--ev-bar:#db2777}
+.ev-slate{--ev-bg:#f1f1ee;--ev-fg:#27272a;--ev-bar:#71717a}
+.agenda-event{display:block;padding:9px 11px;border-radius:10px;margin-bottom:6px;background:var(--ev-bg);color:var(--ev-fg);border-left:3px solid var(--ev-bar);cursor:pointer}
+.agenda-event b{display:block;font-size:13px;line-height:1.35}
+.agenda-event span{font-size:11.5px;opacity:.85}
+.agenda-event p{margin:4px 0 0;font-size:12px;white-space:pre-line;opacity:.9}
+.cal-hint{font-size:12px;color:var(--muted);margin:0 0 12px}
+
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--sunken);border-radius:10px;padding:3px}
+.seg button{border:0;background:transparent;height:32px;border-radius:8px;font-weight:600;font-size:13px;color:var(--muted)}
+.seg button.active{background:var(--panel);color:var(--text);box-shadow:var(--sh-1)}
+.quick-title{font-size:16px!important;font-weight:600;padding:12px 14px!important}
+.swatches{display:flex;gap:8px;align-items:center;height:42px}
+.swatches label{display:block;cursor:pointer}
+.swatches input{position:absolute;opacity:0;pointer-events:none}
+.swatches span{display:block;width:24px;height:24px;border-radius:50%;background:var(--ev-bar);box-shadow:0 0 0 2px var(--panel),0 0 0 3px transparent;transition:box-shadow .12s var(--ease)}
+.swatches input:checked+span{box-shadow:0 0 0 2px var(--panel),0 0 0 4px var(--ev-bar)}
+.swatches input:focus-visible+span{outline:2px solid var(--accent);outline-offset:4px}
+#quickDialog{width:min(520px,92vw)}
+#quickDialog .dialog-head p{color:var(--accent);font-weight:600}
+
+@media(max-width:620px){
+  .cal-week{min-height:64px}
+  .cal-day-head{padding:5px 2px 2px;display:flex;flex-direction:column;align-items:center}
+  .cal-items{padding:2px 2px 5px;align-items:center}
+  .cal-event{font-size:0;padding:0;height:5px;margin:1px 2px;border-left:0}
+  .cal-event small{display:none}
+  .cal-week:hover .cal-add{opacity:0}
+  .cal-day-head.selected .cal-add{opacity:1;background:var(--ink);color:#fff}
+  .cal-hint{display:none}
+}
+.dialog-actions{display:flex;flex-wrap:wrap}
+.dialog-actions>span{flex:1}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -593,6 +650,7 @@ dialog::backdrop{background:rgba(24,24,27,.32);-webkit-backdrop-filter:blur(4px)
                 <label class="toggle"><input id="calShowDone" type="checkbox"> Show done</label>
               </div>
             </div>
+            <p class="cal-hint">Tip: drag across days (e.g. Oct 25 → 26) or click <b>+</b> to add a schedule or task.</p>
             <div id="calWeekdays" class="cal-weekdays"></div>
             <div id="calGrid" class="cal-grid"></div>
             <div class="cal-legend">
@@ -601,6 +659,7 @@ dialog::backdrop{background:rgba(24,24,27,.32);-webkit-backdrop-filter:blur(4px)
               <span><i class="cal-dot dot-medium"></i>Medium</span>
               <span><i class="cal-dot dot-low"></i>Low</span>
               <span><i class="cal-dot dot-project"></i>Project due</span>
+              <span><i class="cal-dot" style="background:#4f46e5;border-radius:2px;width:12px;height:5px"></i>Schedule</span>
               <span><i class="cal-dot dot-done"></i>Done</span>
             </div>
           </div>
@@ -748,6 +807,42 @@ dialog::backdrop{background:rgba(24,24,27,.32);-webkit-backdrop-filter:blur(4px)
     </form>
   </dialog>
 
+  <dialog id="quickDialog">
+    <form id="quickForm" class="dialog-form">
+      <div class="dialog-head">
+        <div><h2 id="quickHeading">Add to calendar</h2><p id="quickRangeLabel"></p></div>
+        <button class="close-btn" data-close="quickDialog" type="button">×</button>
+      </div>
+      <div id="quickKindSwitch" class="seg" role="group" aria-label="Type">
+        <button type="button" data-quick-kind="event">Schedule / event</button>
+        <button type="button" data-quick-kind="task">Task card</button>
+      </div>
+      <input id="quickText" class="quick-title" required maxlength="140" aria-label="Title">
+      <div class="form-grid">
+        <label id="quickFromField">From<span class="date-wrap"><input id="quickFrom" type="date" required></span></label>
+        <label><span id="quickToLabel">To</span><span class="date-wrap"><input id="quickTo" type="date" required></span></label>
+      </div>
+      <div id="quickEventFields" class="stack">
+        <div class="form-grid">
+          <label><span>Time <span class="task-acc-hint">(optional)</span></span><input id="quickTime" type="time"></label>
+          <div><span class="field-label">Colour</span><div class="swatches"><label class="ev-indigo" title="Indigo"><input type="radio" name="quickColor" value="indigo" checked><span></span></label><label class="ev-green" title="Green"><input type="radio" name="quickColor" value="green"><span></span></label><label class="ev-orange" title="Orange"><input type="radio" name="quickColor" value="orange"><span></span></label><label class="ev-pink" title="Pink"><input type="radio" name="quickColor" value="pink"><span></span></label><label class="ev-slate" title="Grey"><input type="radio" name="quickColor" value="slate"><span></span></label></div></div>
+        </div>
+        <label><span>Notes <span class="task-acc-hint">(optional)</span></span><textarea id="quickNotes" rows="2" placeholder="Venue, booth number, who's going…"></textarea></label>
+      </div>
+      <div id="quickTaskFields" class="form-grid hidden">
+        <label>Project<select id="quickProject"></select></label>
+        <label>Priority<select id="quickPriority"><option>Low</option><option selected>Medium</option><option>High</option><option>Urgent</option></select></label>
+      </div>
+      <p id="quickNotice" class="message hidden"></p>
+      <div class="dialog-actions">
+        <button id="quickDelete" class="danger-btn hidden" type="button">Delete</button>
+        <span><button id="quickMore" class="link-btn hidden" type="button">More options</button></span>
+        <button class="secondary-btn" data-close="quickDialog" type="button">Cancel</button>
+        <button id="quickSave" class="primary-btn" type="submit">Save</button>
+      </div>
+    </form>
+  </dialog>
+
   <div id="toast" class="toast hidden" aria-live="polite"></div>
 
   <script>
@@ -799,6 +894,8 @@ let reportSettingsColumn = null; // true once profiles.report_settings exists
 let reportPeriod = new Date().getDate() <= 15 ? "first" : "second";
 let reportFrom = "", reportTo = "";
 let rsLogoDraft = "";
+let calendarEvents = [];
+let eventsTable = null; // true once the calendar_events table exists
 let calMonth = (() => { const d = new Date(); return new Date(d.getFullYear(), d.getMonth(), 1); })();
 let selectedDate = dateKey(new Date());
 const statusBeforeDone = new Map();
@@ -946,7 +1043,12 @@ async function reloadData() {
     reportSettingsColumn = !profileProbe.error;
   }
 
-  const [membersRes, projectsRes, tasksRes, checksRes] = await Promise.all([
+  if (eventsTable === null) {
+    const probe = await supabase.from("calendar_events").select("id").limit(1);
+    eventsTable = !probe.error;
+  }
+
+  const [membersRes, projectsRes, tasksRes, checksRes, eventsRes] = await Promise.all([
     supabase.from("team_members")
       .select(`user_id,role,profiles(id,display_name${reportSettingsColumn ? ",report_settings" : ""})`)
       .eq("team_id", team.id)
@@ -962,10 +1064,13 @@ async function reloadData() {
     supabase.from("checklist_items")
       .select("*")
       .eq("team_id", team.id)
-      .order("position")
+      .order("position"),
+    eventsTable
+      ? supabase.from("calendar_events").select("*").eq("team_id", team.id).order("start_date")
+      : Promise.resolve({data:[], error:null})
   ]);
 
-  const firstError = [membersRes, projectsRes, tasksRes, checksRes].find(r => r.error)?.error;
+  const firstError = [membersRes, projectsRes, tasksRes, checksRes, eventsRes].find(r => r.error)?.error;
   if (firstError) {
     console.error(firstError);
     toast("Could not refresh data.");
@@ -976,6 +1081,7 @@ async function reloadData() {
   projects = projectsRes.data || [];
   tasks = tasksRes.data || [];
   checklistItems = checksRes.data || [];
+  calendarEvents = eventsRes.data || [];
 
   renderAll();
 }
@@ -994,8 +1100,11 @@ function setupRealtime() {
     .on("postgres_changes", {event:"*", schema:"public", table:"projects", filter:`team_id=eq.${team.id}`}, scheduleReload)
     .on("postgres_changes", {event:"*", schema:"public", table:"tasks", filter:`team_id=eq.${team.id}`}, scheduleReload)
     .on("postgres_changes", {event:"*", schema:"public", table:"checklist_items", filter:`team_id=eq.${team.id}`}, scheduleReload)
-    .on("postgres_changes", {event:"*", schema:"public", table:"team_members", filter:`team_id=eq.${team.id}`}, scheduleReload)
-    .subscribe();
+    .on("postgres_changes", {event:"*", schema:"public", table:"team_members", filter:`team_id=eq.${team.id}`}, scheduleReload);
+  if (eventsTable) {
+    realtimeChannel.on("postgres_changes", {event:"*", schema:"public", table:"calendar_events", filter:`team_id=eq.${team.id}`}, scheduleReload);
+  }
+  realtimeChannel.subscribe();
 }
 
 function cleanupRealtime() {
@@ -1369,60 +1478,103 @@ function renderCalendar() {
   const cellCount = Math.ceil((offset + daysInMonth) / 7) * 7;
   const start = new Date(year, month, 1 - offset);
 
-  const cells = [];
-  for (let i = 0; i < cellCount; i++) {
-    const d = new Date(start); d.setDate(start.getDate() + i);
-    const key = dateKey(d);
-    const dayTasks = visible.filter(t => t.due_date === key).sort(byUrgency);
-    const dayProjects = projects.filter(p => p.due_date === key);
-    const classes = ["cal-day",
-      d.getMonth() !== month ? "outside" : "",
-      key === today ? "today" : "",
-      key === selectedDate ? "selected" : ""].join(" ");
-    cells.push(`<div class="${classes}" data-date="${key}">
-      <div class="cal-day-head">
+  const weeks = [];
+  for (let w = 0; w < cellCount / 7; w++) {
+    const days = Array.from({length:7}, (_, i) => {
+      const d = new Date(start); d.setDate(start.getDate() + w * 7 + i);
+      return d;
+    });
+    const weekStart = dateKey(days[0]), weekEnd = dateKey(days[6]);
+
+    // Lay schedules out in lanes so multi-day bars never overlap
+    const weekEvents = calendarEvents
+      .filter(ev => ev.start_date <= weekEnd && ev.end_date >= weekStart)
+      .sort((x, y) => x.start_date.localeCompare(y.start_date) || y.end_date.localeCompare(x.end_date));
+    const laneEnds = [];
+    const bars = weekEvents.map(ev => {
+      const from = Math.max(0, daysBetween(weekStart, ev.start_date));
+      const to = Math.min(6, daysBetween(weekStart, ev.end_date));
+      let lane = laneEnds.findIndex(end => end < from);
+      if (lane === -1) { lane = laneEnds.length; laneEnds.push(to); } else laneEnds[lane] = to;
+      const time = ev.start_time && ev.start_date >= weekStart ? `<small>${formatTime(ev.start_time)}</small>` : "";
+      return `<div class="cal-event ev-${escapeHtml(ev.color || "indigo")} ${ev.start_date < weekStart ? "cont-l" : ""} ${ev.end_date > weekEnd ? "cont-r" : ""}"
+        style="grid-column:${from + 1} / span ${to - from + 1};grid-row:${lane + 2}" data-event-id="${ev.id}" title="${escapeHtml(ev.title)}">${time}${escapeHtml(ev.title)}</div>`;
+    });
+    const lanes = laneEnds.length;
+
+    const cols = days.map((d, i) => {
+      const key = dateKey(d);
+      const state = [d.getMonth() !== month ? "outside" : "", key === today ? "today" : "", key === selectedDate ? "selected" : ""].join(" ");
+      const dayTasks = visible.filter(t => t.due_date === key).sort(byUrgency);
+      const dayProjects = projects.filter(p => p.due_date === key);
+      return `<div class="cal-day ${state}" data-date="${key}" style="grid-column:${i + 1}"></div>
+      <div class="cal-day-head ${state}" data-date="${key}" style="grid-column:${i + 1};grid-row:1">
         <div class="cal-num">${d.getDate()}</div>
-        <button class="cal-add" data-add-on-date="${key}" type="button" title="Add a card due ${longDate(key)}" aria-label="Add a card due ${longDate(key)}">+</button>
+        <button class="cal-add" data-add-on-date="${key}" type="button" title="Add on ${longDate(key)}" aria-label="Add on ${longDate(key)}">+</button>
       </div>
-      ${dayProjects.map(p => `<div class="cal-project" title="Project due: ${escapeHtml(p.name)}">⚑ ${escapeHtml(p.name)}</div>`).join("")}
-      ${dayTasks.map(t => {
-        const done = t.status === "Done";
-        return `<div class="cal-chip pri-${t.priority.toLowerCase()} ${done ? "is-done" : ""} ${overdue(t) ? "is-overdue" : ""}">
-          <input type="checkbox" data-toggle-done="${t.id}" ${done ? "checked" : ""} aria-label="Mark ${escapeHtml(t.title)} done">
-          <span data-open-task="${t.id}" title="${escapeHtml(t.title)}">${escapeHtml(t.title)}</span>
-        </div>`;
-      }).join("")}
-      ${dayTasks.length || dayProjects.length ? `<div class="cal-dots">
-        ${dayProjects.map(() => `<i class="cal-dot dot-project"></i>`).join("")}
-        ${dayTasks.slice(0,6).map(t => `<i class="cal-dot ${t.status === "Done" ? "dot-done" : "dot-" + t.priority.toLowerCase()}"></i>`).join("")}
-      </div>` : ""}
-    </div>`);
+      <div class="cal-items" data-date="${key}" style="grid-column:${i + 1};grid-row:${lanes + 2}">
+        ${dayProjects.map(p => `<div class="cal-project" title="Project due: ${escapeHtml(p.name)}">⚑ ${escapeHtml(p.name)}</div>`).join("")}
+        ${dayTasks.map(t => {
+          const done = t.status === "Done";
+          return `<div class="cal-chip pri-${t.priority.toLowerCase()} ${done ? "is-done" : ""} ${overdue(t) ? "is-overdue" : ""}">
+            <input type="checkbox" data-toggle-done="${t.id}" ${done ? "checked" : ""} aria-label="Mark ${escapeHtml(t.title)} done">
+            <span data-open-task="${t.id}" title="${escapeHtml(t.title)}">${escapeHtml(t.title)}</span>
+          </div>`;
+        }).join("")}
+        ${dayTasks.length || dayProjects.length ? `<div class="cal-dots">
+          ${dayProjects.map(() => `<i class="cal-dot dot-project"></i>`).join("")}
+          ${dayTasks.slice(0,6).map(t => `<i class="cal-dot ${t.status === "Done" ? "dot-done" : "dot-" + t.priority.toLowerCase()}"></i>`).join("")}
+        </div>` : ""}
+      </div>`;
+    }).join("");
+
+    weeks.push(`<div class="cal-week" style="grid-template-rows:auto${lanes ? ` repeat(${lanes}, auto)` : ""} 1fr">${cols}${bars.join("")}</div>`);
   }
-  $("calGrid").innerHTML = cells.join("");
+  $("calGrid").innerHTML = weeks.join("");
 
   // Selected day panel
   const selTasks = visible.filter(t => t.due_date === selectedDate).sort(byUrgency);
   const selProjects = projects.filter(p => p.due_date === selectedDate);
+  const selEvents = calendarEvents.filter(ev => ev.start_date <= selectedDate && ev.end_date >= selectedDate);
   $("calDayPanel").innerHTML = `
     <div class="cal-panel-head">
       <h3>${selectedDate === today ? "Today · " : ""}${longDate(selectedDate)}</h3>
-      <button class="link-btn" data-add-on-date="${selectedDate}" type="button">+ Add card</button>
+      <button class="link-btn" data-add-on-date="${selectedDate}" type="button">+ Add</button>
     </div>
+    ${selEvents.map(agendaEvent).join("")}
     ${selProjects.map(p => `<div class="agenda-project-due">⚑ Project due: ${escapeHtml(p.name)}</div>`).join("")}
-    ${selTasks.length ? selTasks.map(t => agendaItem(t, false)).join("")
-      : selProjects.length ? "" : `<div class="agenda-empty">Nothing due on this day.</div>`}`;
+    ${selTasks.map(t => agendaItem(t, false)).join("")}
+    ${selEvents.length || selProjects.length || selTasks.length ? "" : `<div class="agenda-empty">Nothing scheduled on this day.</div>`}`;
 
   // Agenda
   const group = (title, list, cls, showDate) => `<div class="agenda-group ${cls}">
     <h4>${title} <span class="count">${list.length}</span></h4>
     ${list.length ? list.map(t => agendaItem(t, showDate)).join("") : `<div class="agenda-empty">All clear</div>`}
   </div>`;
+  const upcoming = calendarEvents.filter(ev => ev.end_date >= today && ev.start_date <= addDays(today, 14));
   $("calAgenda").innerHTML = `
     <div class="cal-panel-head"><h3>Needs attention</h3></div>
+    ${upcoming.length ? `<div class="agenda-group"><h4>Upcoming schedule <span class="count">${upcoming.length}</span></h4>${upcoming.map(agendaEvent).join("")}</div>` : ""}
     ${group("Overdue", overdueList, "g-overdue", true)}
     ${group("Due today", todayList, "g-today", false)}
     ${group("Next 7 days", weekList, "g-week", true)}
     ${urgentList.length ? group("Other urgent", urgentList, "g-urgent", true) : ""}`;
+}
+
+function daysBetween(a, b) {
+  return Math.round((new Date(b + "T00:00:00") - new Date(a + "T00:00:00")) / 864e5);
+}
+
+function formatTime(t) {
+  return new Date(`2000-01-01T${t.slice(0, 5)}`).toLocaleTimeString([], {hour:"numeric", minute:"2-digit"});
+}
+
+function agendaEvent(ev) {
+  return `<div class="agenda-event ev-${escapeHtml(ev.color || "indigo")}" data-event-id="${ev.id}">
+    <b>${escapeHtml(ev.title)}</b>
+    <span>${escapeHtml(rangeLabel({from:ev.start_date, to:ev.end_date}))}${ev.start_time ? " · " + formatTime(ev.start_time) : ""}</span>
+    ${ev.notes ? `<p>${escapeHtml(ev.notes)}</p>` : ""}
+  </div>`;
 }
 
 function agendaItem(t, showDate) {
@@ -1481,17 +1633,19 @@ $("calendarView").addEventListener("change", e => {
 });
 
 $("calendarView").addEventListener("click", e => {
+  if (suppressCalClick) return;
   if (e.target.closest("[data-toggle-done]")) return;
   const opener = e.target.closest("[data-open-task]");
   if (opener) return openTask(opener.dataset.openTask);
+  const eventEl = e.target.closest("[data-event-id]");
+  if (eventEl) return openQuickAdd({eventId:eventEl.dataset.eventId});
   const adder = e.target.closest("[data-add-on-date]");
-  if (adder) {
-    if (!projects.length) return openProject();
-    openTask();
-    $("taskDueInput").value = adder.dataset.addOnDate;
-    return;
-  }
+  if (adder) return openQuickAdd({from:adder.dataset.addOnDate, to:adder.dataset.addOnDate});
   const day = e.target.closest("[data-date]");
+  if (day && e.shiftKey && selectedDate && selectedDate !== day.dataset.date) {
+    const [from, to] = [selectedDate, day.dataset.date].sort();
+    return openQuickAdd({from, to});
+  }
   if (day) {
     selectedDate = day.dataset.date;
     const d = new Date(selectedDate + "T00:00:00");
@@ -1500,6 +1654,154 @@ $("calendarView").addEventListener("click", e => {
     }
     renderCalendar();
   }
+});
+
+
+// ---------- Drag across days to add a multi-day entry ----------
+let calDrag = null;
+let suppressCalClick = false;
+
+function paintCalRange(from, to) {
+  const [a, b] = [from, to].sort();
+  document.querySelectorAll(".cal-week > .cal-day").forEach(c => c.classList.toggle("in-range", !!from && c.dataset.date >= a && c.dataset.date <= b));
+}
+
+$("calGrid").addEventListener("pointerdown", e => {
+  if (e.pointerType !== "mouse" || e.button !== 0) return;
+  if (e.target.closest("button, input, [data-open-task], [data-event-id]")) return;
+  const cell = e.target.closest("[data-date]");
+  if (cell) calDrag = {from:cell.dataset.date, to:cell.dataset.date};
+});
+$("calGrid").addEventListener("pointerover", e => {
+  if (!calDrag) return;
+  const cell = e.target.closest("[data-date]");
+  if (!cell || cell.dataset.date === calDrag.to) return;
+  calDrag.to = cell.dataset.date;
+  paintCalRange(calDrag.from, calDrag.to);
+});
+document.addEventListener("pointerup", () => {
+  if (!calDrag) return;
+  const {from, to} = calDrag;
+  calDrag = null;
+  paintCalRange(null);
+  if (from === to) return;
+  suppressCalClick = true;
+  setTimeout(() => { suppressCalClick = false; }, 0);
+  const [a, b] = [from, to].sort();
+  openQuickAdd({from:a, to:b});
+});
+
+// ---------- Quick add: schedule or task ----------
+let quickKind = "event";
+let quickEditId = null;
+try { quickKind = localStorage.getItem("dualflow-quick-kind") || "event"; } catch {}
+
+function setQuickKind(kind) {
+  quickKind = kind;
+  document.querySelectorAll("[data-quick-kind]").forEach(b => b.classList.toggle("active", b.dataset.quickKind === kind));
+  const isTask = kind === "task";
+  $("quickEventFields").classList.toggle("hidden", isTask);
+  $("quickTaskFields").classList.toggle("hidden", !isTask);
+  $("quickMore").classList.toggle("hidden", !isTask);
+  $("quickFromField").classList.toggle("hidden", isTask);
+  $("quickToLabel").textContent = isTask ? "Due date" : "To";
+  $("quickText").placeholder = isTask ? "e.g. Submit liquidation report" : "e.g. NSTW exhibit";
+  updateQuickMeta();
+}
+
+function quickRange() {
+  const to = $("quickTo").value || $("quickFrom").value;
+  const from = quickKind === "task" ? to : ($("quickFrom").value || to);
+  return from <= to ? {from, to} : {from:to, to:from};
+}
+
+function updateQuickMeta() {
+  const r = quickRange();
+  $("quickRangeLabel").textContent = !r.to ? "" : quickKind === "task" ? `Due ${longDate(r.to)}` : rangeLabel(r);
+  const notice = quickKind === "event" && !eventsTable
+    ? "Schedules need a one-time database update: run supabase_calendar_events.sql in the Supabase SQL Editor."
+    : quickKind === "task" && !projects.length ? "Create a project first to add task cards." : "";
+  $("quickNotice").textContent = notice;
+  $("quickNotice").className = notice ? "message error" : "message hidden";
+  $("quickSave").disabled = !!notice;
+}
+
+function openQuickAdd({from, to, eventId}) {
+  const ev = eventId ? calendarEvents.find(x => x.id === eventId) : null;
+  if (eventId && !ev) return;
+  quickEditId = ev?.id || null;
+  $("quickForm").reset();
+  $("quickHeading").textContent = ev ? "Edit schedule" : "Add to calendar";
+  $("quickKindSwitch").classList.toggle("hidden", !!ev);
+  $("quickDelete").classList.toggle("hidden", !ev);
+  $("quickText").value = ev?.title || "";
+  $("quickFrom").value = ev?.start_date || from;
+  $("quickTo").value = ev?.end_date || to || from;
+  $("quickTime").value = ev?.start_time ? ev.start_time.slice(0, 5) : "";
+  $("quickNotes").value = ev?.notes || "";
+  const color = ev?.color || "indigo";
+  document.querySelectorAll('input[name="quickColor"]').forEach(r => { r.checked = r.value === color; });
+  $("quickProject").innerHTML = projects.map(p => `<option value="${p.id}">${escapeHtml(p.name)}</option>`).join("");
+  if (projects.length) $("quickProject").value = $("projectFilter").value || projects[0].id;
+  setQuickKind(ev ? "event" : quickKind);
+  $("quickDialog").showModal();
+  setTimeout(() => $("quickText").focus(), 30);
+}
+
+document.querySelectorAll("[data-quick-kind]").forEach(b => b.addEventListener("click", () => {
+  setQuickKind(b.dataset.quickKind);
+  try { localStorage.setItem("dualflow-quick-kind", quickKind); } catch {}
+}));
+["quickFrom", "quickTo"].forEach(id => $(id).addEventListener("input", updateQuickMeta));
+
+$("quickMore").addEventListener("click", () => {
+  const title = $("quickText").value, due = quickRange().to;
+  const project = $("quickProject").value, priority = $("quickPriority").value;
+  $("quickDialog").close();
+  if (!projects.length) return openProject();
+  openTask();
+  $("taskTitleInput").value = title;
+  $("taskDueInput").value = due;
+  $("taskProjectInput").value = project;
+  $("taskPriorityInput").value = priority;
+});
+
+$("quickForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const title = $("quickText").value.trim();
+  if (!title) return;
+  const {from, to} = quickRange();
+  $("quickSave").disabled = true;
+  let result;
+  if (quickKind === "event") {
+    const row = {
+      team_id:team.id, title, notes:$("quickNotes").value.trim(),
+      start_date:from, end_date:to, start_time:$("quickTime").value || null,
+      color:document.querySelector('input[name="quickColor"]:checked')?.value || "indigo"
+    };
+    result = quickEditId
+      ? await supabase.from("calendar_events").update(row).eq("id", quickEditId)
+      : await supabase.from("calendar_events").insert({...row, created_by:session.user.id});
+  } else {
+    result = await supabase.from("tasks").insert({
+      team_id:team.id, project_id:$("quickProject").value, title, description:"",
+      status:"To Do", priority:$("quickPriority").value, assignee_id:session.user.id,
+      due_date:to, created_by:session.user.id
+    });
+  }
+  $("quickSave").disabled = false;
+  if (result.error) return toast(result.error.message);
+  $("quickDialog").close();
+  scheduleReload();
+  toast(quickEditId ? "Schedule updated" : `Added “${title}” · ${quickKind === "task" ? formatDate(to) : rangeLabel({from, to})}`);
+});
+
+$("quickDelete").addEventListener("click", async () => {
+  if (!quickEditId || !confirm("Delete this schedule?")) return;
+  const { error } = await supabase.from("calendar_events").delete().eq("id", quickEditId);
+  if (error) return toast(error.message);
+  $("quickDialog").close();
+  scheduleReload();
 });
 
 $("calPrev").addEventListener("click", () => { calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() - 1, 1); renderCalendar(); });
